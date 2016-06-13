@@ -38,14 +38,35 @@ angular.module('starter.controllers', [])
       $ionicHistory.goBack();
     };
     $scope.listid = $stateParams.id;
-    var data = {"filter":{
-      "keyword": "","category_id": "","price_range":"","brand_id":"","sort_by":"id_desc",
-      "pagination":{"page":"1","count":"100"}
-    }};
-    $http({method:'POST',url:'http://test.shizhencaiyuan.com/PHP/?url=/search',data:{"filter":{
-      "keyword": "","category_id": "","price_range":"","brand_id":"","sort_by":"id_desc",
-      "pagination":{"page":"1","count":"100"}
-    }}})
+    $scope.data = [];
+
+    $scope.loadMore = function() {
+      $http.post('/more-items').success(function(items) {
+        useItems(items);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMore();
+    });
+
+    var data = {
+        "filter":{
+            "keyword": "蔬菜","category_id": $stateParams.id,"price_range":"","brand_id":"","sort_by":"id_desc"
+        },
+        "pagination":{"page":"1","count":"100"}
+    };
+
+    $http({
+      url:'http://test.shizhencaiyuan.com/PHP/?url=/search',
+      method:"POST",
+      dataType:'json',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: data
+    })
     .success(function(res){
         console.log(res)
         $scope.data = res.data;

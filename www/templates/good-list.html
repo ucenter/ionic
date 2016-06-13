@@ -11,7 +11,7 @@
 	<ion-content>
 		<div class="list">
 			<a class="item item-thumbnail-left" ng-href="#/good/{{item.goods_id}}"ng-repeat='item in data'>
-				<img style="width:100px;" ng-src="{{item.img.small}}" alt="" />					
+				<img style="width:100px;" ng-src="{{item.img.small}}" alt="{{item.name}}" />					
 
 				<div class="info">
 					<h3>{{item.name}}</h3>
@@ -23,5 +23,6 @@
 				</div>
 			</a>
 		</div>
+		<ion-infinite-scroll on-infinite-scroll='loadMore()' distance='1%'></ion-infinite-scroll>
 	</ion-content>
 </ion-view>
