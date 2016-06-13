@@ -59,8 +59,25 @@ angular.module('starter.services', ['ngResource'])
   };
 })
 
-.factory('search', ['$resource', function($resource){
-    return function search(arg){      
-      return $resource('http://test.shizhencaiyuan.com/PHP?url=/search', arg,'post')
+.factory('url',function(){
+  var url = 'http://test.shizhencaiyuan.com/PHP/?url='
+  return url;
+})
+.factory('search', ['$http', function($http){
+    return function search(){      
+      return $http.post('http://test.shizhencaiyuan.com/PHP?url=/search')
     } 
 }])
+.factory('getData', function($http){
+  var url = 'http://test.shizhencaiyuan.com/PHP/?url=';
+  return {
+      good: function(arg){
+        return $http.post(url+'/goods',arg)
+      },
+      goodDetail:function(){
+        return 
+      }    
+
+  }
+  
+})

@@ -1,6 +1,29 @@
-<ion-view title='商品详情' ng-controller='goodDetailCtrl'>
+<ion-view title='商品详情' >
+	<ion-header-bar class="bar-positive">
+	  <div class="buttons">
+	    <button class="button" ng-click="goBack()"><i class="ion-chevron-left"></i></button>
+	  </div>
+	  <h1 class="title">商品详情</h1>
+	  <div class="buttons">
+	    <button class="button"><i class="ion-home"></i></button>
+	  </div>
+	</ion-header-bar>
+
 	<ion-content class="padding">
-	  {{good}}
+	  <ion-slide-box>
+		  <ion-slide ng-repeat='item in data.pictures'>
+		    <div class="box blue">
+		    	<img style="min-width:320px;width:100%;height:auto;" ng-src="{{item.small}}" alt="{{data.goods_name}}" />
+		    </div>
+		  </ion-slide>
+		</ion-slide-box>
+		<div class="grid">
+			<ul>
+				<li><h2>{{data.goods_name}}</h2></li>
+				<li>{{data.goods_weight}}</li>
+				<li><span data-ng-bind-html='data.shop_price'></span></li>
+			</ul>
+		</div>
 	</ion-content>
 	<ion-footer-bar align-title="left" class="bar-assertive">
 	  <div class="buttons">
