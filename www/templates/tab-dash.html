@@ -1,0 +1,20 @@
+<ion-view view-title="首页">
+  <ion-content class="padding">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+      <ion-slide ng-repeat='slide in data.player'>
+        <div class="box">
+          <img style="display:block;min-width:320px; width:100%;height:auto;" ng-src={{slide.photo.thumb}} alt="" />
+        </div>
+      </ion-slide>
+    </ion-slide-box>  
+
+    <ion-list ng-repeat='item in list'>
+      <ion-item href='#/good/{{good.id}}' class="item-thumbnail-left" ng-repeat='good in item.goods track by $index'>
+          <img ng-src="{{good.img.small}}" />
+          <h2>{{good.name}}</h2>
+          <p>{{good.id}}【{{item.name}}】</p>
+          <p>价格：<em data-ng-bind-html='good.shop_price' class="shop_price"></em></p>
+      </ion-item>
+    </ion-list ng-repeat>
+  </ion-content>
+</ion-view>

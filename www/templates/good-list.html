@@ -1,0 +1,27 @@
+<ion-view title='商品列表'>
+	<ion-header-bar align-title="left" class="bar-positive">
+	  <div class="buttons">
+	    <button class="button" ng-click="goBack()">返回</button>
+	  </div>
+	  <h1 class="title">Title!</h1>
+	  <div class="buttons">
+	    <button class="button">Right Button</button>
+	  </div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
+			<a class="item item-thumbnail-left" ng-href="#/good/{{item.goods_id}}"ng-repeat='item in data'>
+				<img style="width:100px;" ng-src="{{item.img.small}}" alt="" />					
+
+				<div class="info">
+					<h3>{{item.name}}</h3>
+					<p>
+						<span>价格<span class="shop_price" data-ng-bind-html="item.shop_price"></span></span>
+						<span><i class="">加入购物车</i></span>
+						<span>收藏</span>
+					</p>
+				</div>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>
