@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
-    .state('good',{
+  .state('good',{
       url:'/good/:id',
       controller:'goodDetailCtrl',
       templateUrl: 'templates/good-detail.html'
@@ -61,6 +61,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/good-list.html',
     controller: 'goodListCtrl'
   })
+  .state('menu',{
+      url:'/menu/index',
+      views:{
+        'menu-index': {
+          templateUrl: 'templates/menu-index.html',
+          controller: 'menuIndexCtrl'   
+        }
+    }
+  })   
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
@@ -72,15 +81,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-  .state('good.detail',{
-    //   url:'/detail/:id',
-    //   views:{
-    //     'good-detail': {
-    //       templateUrl: 'templates/good-detail.html',
-    //       controller: 'goodDetailCtrl'   
-    //     }
-    // }
-  }) 
   .state('tab.chats', {
       url: '/chats',
       views: {

@@ -1,6 +1,5 @@
 <ion-view view-title="Chats">
   <ion-content>
-    <ion-infinite-scroll on-infinite-scroll='' distance='1%'></ion-infinite-scroll>
       <div class="list"  ng-repeat='item in cates'>
 
             <a class="item item-avatar" href="#/goodlist/{{child.id}}"  ng-repeat='child in item.children track by $index'>
@@ -10,5 +9,6 @@
               <h2>{{item.name}}</h2>
             </a>
       </div>
+    <ion-infinite-scroll on-infinite-scroll='' distance='1%'></ion-infinite-scroll>
   </ion-content>
 </ion-view>
