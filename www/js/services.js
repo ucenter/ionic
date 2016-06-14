@@ -74,9 +74,9 @@ angular.module('starter.services', ['ngResource'])
       good: function(arg){
         return $http.post(url+'/goods',arg)
       },
-      goodDetail:function(){
-        return 
-      }    
+      goodDesc:function(goodsid){
+        return $http.post(url+'/goods/desc',goodsid)
+      }  
 
   }
   

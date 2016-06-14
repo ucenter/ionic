@@ -1,4 +1,21 @@
-<ion-view view-title="首页">
+<ion-view >
+
+  <ion-header-bar align-title='center'>
+    <div class="buttons">
+      <a class="button icon-left ion-qr-scanner" ng-click="doSomething()"></a>
+    </div>
+    <div class="title buttons item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search"placeholder="Search">
+      </label>
+    </div>
+
+    <div class="buttons">
+      <a class="button icon-left ion-chatbox-working"></a>
+    </div>
+  </ion-header-bar>
+
   <ion-content class="padding">
     <ion-slide-box on-slide-changed="slideHasChanged($index)">
       <ion-slide ng-repeat='slide in data.player'>
