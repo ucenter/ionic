@@ -49,34 +49,152 @@ angular.module('starter.services', ['ngResource'])
   };
 })
 
-.factory('category', function(){
-  var category = {"data":[{"id":"146","name":"\u4f1a\u5458\u5361","children":[{"id":"147","name":"\u5e74\u5361"},{"id":"149","name":"\u534a\u5e74\u5361"},{"id":"148","name":"\u5b63\u5361"},{"id":"152","name":"\u4f53\u9a8c\u5361"}]},{"id":"150","name":"\u751f\u6001\u7cae\u6cb9","children":[]},{"id":"151","name":"\u751f\u6001\u79bd\u86cb\u8089","children":[]},{"id":"153","name":"\u98df\u73cd\u5e72\u679c","children":[]},{"id":"154","name":"\u751f\u6001\u83cc\u7c7b","children":[]},{"id":"155","name":"\u6c81\u852c\u81f4\u81b3","children":[]},{"id":"156","name":"\u5bb6\u5ead\u7504\u9009","children":[]},{"id":"158","name":"\u6d4b\u8bd5\u5206\u7c7b","children":[]},{"id":"160","name":"ceshi1","children":[]}],"status":{"succeed":1}}
 
-  return {
-    all: function(){
-      return category;
+.factory('init', function($http,getData){
+  console.log('init')
+  //初始化用户信息变量
+  var user = {"session":{"uid":"","sid":""}}
+  
+  //读取本地存储用户信息
+  user.session = JSON.stringify(getlocal('session'));
+
+  //获取用户登录状态
+  getData.user.info().success(function(res){
+    console.log('初始化用户',res)
+    if (res.status.error_code == 100) {
+      
     }
-  };
+  })
+  function getlocal(a){
+    return window.localStorage.getItem(a)
+  } 
+  return {
+    user: user
+  }
 })
 
-.factory('url',function(){
-  var url = 'http://test.shizhencaiyuan.com/PHP/?url='
-  return url;
-})
-.factory('search', ['$http', function($http){
-    return function search(){      
-      return $http.post('http://test.shizhencaiyuan.com/PHP?url=/search')
-    } 
-}])
 .factory('getData', function($http){
   var url = 'http://test.shizhencaiyuan.com/PHP/?url=';
   return {
+      config:function(){
+        return $http.post(url+'/config')
+      },
+      category:function(){
+        return $http.post(url+'/category')
+      },
       good: function(arg){
         return $http.post(url+'/goods',arg)
       },
       goodDesc:function(goodsid){
         return $http.post(url+'/goods/desc',goodsid)
-      }  
+      },
+      search: function(arg){
+        return $http.post(url+'/search',arg)
+      },
+      searchKeywords:function(){
+        return $http.post(url+'/searchKeywords')
+      },
+      homeData: function(){
+        return $http.post(url+'/home/data')
+      },
+      homeCategory:function(){
+        return $http.post(url+'/home/category')
+      },
+      shopHelp:function(){
+        return $http.post(url+'/shopHelp')
+      },
+      article: function(article_id){
+        return $http.post(url+'/article',id)
+      },
+      region: function(parent_id){
+        return $http.post(url+'/region',id)
+      },
+      user: {
+        signin: function(arg){
+          return $http.post(url+'/user/signin',arg)
+        },
+        signup: function(arg){
+          return $http.post(url+'/user/signup',arg)
+        },
+        signupFields: function(){
+          return $http.post(url+'/user/signupFields')
+        },
+        info: function(arg){
+          return $http.post(url+'/user/info',arg)
+        },
+        collectCreate: function(arg){
+          return $http.post(url+'/user/collect/create',arg)
+        },
+        collectDelete: function(arg){
+          return $http.post(url+'/user/collect/delete',arg)
+        },
+        collectList: function(arg){
+          return $http.post(url+'/user/collect/list',arg)
+        }
+      },
+      address: {
+        list: function(arg){
+          return $http.post(url+'/address/list',arg)
+        },
+        add: function(arg){
+          return $http.post(url+'/address/add',arg)
+        },
+        update: function(arg){
+          return $http.post(url+'/address/update',arg)
+        },
+        info: function(arg){
+          return $http.post(url+'/address/info',arg)
+        },
+        del: function(arg){
+          return $http.post(url+'/address/delete',arg)
+        },
+        setDefault: function(arg){
+          return $http.post(url+'/address/setDefault',arg)
+        }
+      },
+      cart: {
+        create: function(arg){
+          return $http.post(url+'/cart/create',arg)
+        },
+        update: function(arg){
+          return $http.post(url+'/cart/update',arg)
+        },
+        del: function(arg){
+          return $http.post(url+'/cart/delete',arg)
+        },
+        list: function(arg){
+          return $http.post(url+'/cart/list',arg)
+        }
+      },
+      flow: {
+        checkOrder: function(arg){
+          return $http.post(url+'/flow/checkOrder',arg)
+        },
+        done: function(arg){
+          return $http.post(url+'/flow/done',arg)
+        }
+      },
+      order: {
+        list: function(arg){
+          return $http.post(url+'/order/list',arg)
+        },
+        affirmReceived: function(arg){
+          return $http.post(url+'/order/affirmReceived',arg)
+        },
+        cancel: function(arg){
+          return $http.post(url+'/order/cancel',arg)
+        },
+        pay: function(arg){
+          return $http.post(url+'/order/pay',arg)
+        }
+      },
+      brand: function(category_id){
+        return $http.post(url+'/brand',arg)
+      },
+      price_range: function(category_id){
+        return $http.post(url+'/price_range',arg)
+      }
+
 
   }
   

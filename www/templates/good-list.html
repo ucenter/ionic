@@ -9,6 +9,10 @@
 	  </div>
 	</ion-header-bar>
 	<ion-content>
+		<ion-refresher
+		    pulling-text="下拉刷新..."
+		    on-refresh="doRefresh()">
+		  </ion-refresher>	
 		<div class="list">
 			<a class="item item-thumbnail-left" ng-href="#/good/{{item.goods_id}}"ng-repeat='item in data'>
 				<img style="width:100px;" ng-src="{{item.img.small}}" alt="{{item.name}}" />					
@@ -23,6 +27,10 @@
 				</div>
 			</a>
 		</div>
-		<ion-infinite-scroll on-infinite-scroll='loadMore()' distance='1%'></ion-infinite-scroll>
+		<ion-infinite-scroll
+		  ng-if="moreDataCanBeLoaded()"
+		  icon="ion-loading-c"
+		  on-infinite="loadMore()">
+		</ion-infinite-scroll>
 	</ion-content>
 </ion-view>

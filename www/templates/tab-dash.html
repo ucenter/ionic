@@ -1,8 +1,8 @@
 <ion-view >
 
-  <ion-header-bar align-title='center'>
+  <ion-header-bar class="bar-header bar-assertive" align-title='center'>
     <div class="buttons">
-      <a class="button icon-left ion-qr-scanner" ng-click="doSomething()"></a>
+      <a class="button icon-left ion-qr-scanner" ng-click="doScan()"></a>
     </div>
     <div class="title buttons item-input-inset">
       <label class="item-input-wrapper">
@@ -12,19 +12,22 @@
     </div>
 
     <div class="buttons">
-      <a class="button icon-left ion-chatbox-working"></a>
+      <a class="button icon-left ion-chatbox-working" href="#/tab/account"></a>
     </div>
   </ion-header-bar>
 
-  <ion-content class="padding">
+  <ion-content>
     <ion-slide-box on-slide-changed="slideHasChanged($index)">
       <ion-slide ng-repeat='slide in data.player'>
         <div class="box">
-          <img style="display:block;min-width:320px; width:100%;height:auto;" ng-src={{slide.photo.thumb}} alt="" />
+          <a ng-href='{{slide.url}}'>
+            <img style="display:block;min-width:320px; width:100%;height:auto;" ng-src={{slide.photo.thumb}} />            
+          </a>
         </div>
       </ion-slide>
-    </ion-slide-box>  
-
+    </ion-slide-box>
+    
+    <hr />
     <ion-list ng-repeat='item in list'>
       <ion-item href='#/good/{{good.id}}' class="item-thumbnail-left" ng-repeat='good in item.goods track by $index'>
           <img ng-src="{{good.img.small}}" />

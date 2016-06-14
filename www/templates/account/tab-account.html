@@ -1,0 +1,60 @@
+<ion-view view-title="Account">
+	<ion-header-bar class="bar-stable">
+		<div class="buttons">
+			<a class="button"><i class="icon  ion-ios-gear"></i></a>
+		</div>
+		<h1 class="title">个人中心</h1>
+		<div class="buttons">
+			<a class="button" href='#/tab/dash'><i class="icon ion-ios-chatbubble"></i></a>
+		</div>
+	</ion-header-bar>
+
+	<ion-content>
+		<div class="grid">
+			<div class="userHead">
+				<div class="header">
+					<a class="link" href="">
+						<img src="./img/default.png" alt="">
+						<span>username</span>						
+					</a>
+				</div>
+				<div class="header nologin hide">
+					<a class="link" href="#/login">
+						<img src="./img/default.png" alt="">
+						<span>登陆/注册</span>
+					</a>
+				</div>
+				<div class="row text-center">
+					<div class="col col-33 bgBlack">关注的商品</div>
+					<div class="col col-33 bgBlack">关注的店铺</div>
+					<div class="col col-33 bgBlack">浏览记录</div>
+				</div>
+			</div>
+		</div>  	
+		<ion-list>
+			<a href="" class="item item-icon-left item-icon-right">
+				<i class="icon ion-ios-list energized"></i>
+				我的订单
+				<span class="item-note">查看全部订单</span>
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
+			<a href="" class="item item-icon-left item-icon-right">
+				<i class="icon ion-ios-calculator assertive"></i>
+				我的钱包
+				<span class="item-note">余额、分成等</span>
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
+			<li class='item item-divider'></li>
+			<a href="" class='item item-icon-left item-icon-right'>
+				<i class="icon ion-ios-location royal"></i>
+				收货地址
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>			
+		    <li class="item" ng-click='showToast()'>ionic-toast</li>
+		    <ion-toggle  ng-model="settings.enableFriends">
+		        Enable Friend
+		    </ion-toggle>
+
+		</ion-list>
+	</ion-content>
+</ion-view>

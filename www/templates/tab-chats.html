@@ -1,14 +1,21 @@
 <ion-view view-title="Chats">
+   <ion-header-bar class="bar-header item-input-inset bar-stable" align-title='right'>
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="Search">
+        </label>
+      <div class="buttons button-clear">
+        <a class="button icon-left ion-qr-scanner" ng-click="doScan()"></a>
+      </div>
+    </ion-header-bar>
   <ion-content>
       <div class="list"  ng-repeat='item in cates'>
-
             <a class="item item-avatar" href="#/goodlist/{{child.id}}"  ng-repeat='child in item.children track by $index'>
-              <h2>{{child.name}}</h2>
+              <span>{{child.name}}</span>
             </a>
             <a class="item" href="#/goodlist/{{item.id}}" >
-              <h2>{{item.name}}</h2>
+              <span>{{item.name}}</span>
             </a>
       </div>
-    <ion-infinite-scroll on-infinite-scroll='' distance='1%'></ion-infinite-scroll>
   </ion-content>
 </ion-view>

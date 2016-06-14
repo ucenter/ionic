@@ -9,17 +9,17 @@
 	  </div>
 	</ion-header-bar>
 
-	<ion-content class="padding">
+	<ion-content>
 	  <ion-slide-box does-continue>
 		  <ion-slide ng-repeat='item in data.pictures'>
-		    <div class="box blue">
-		    	<img style="min-width:320px;width:100%;height:auto;" ng-src="{{item.small}}" alt="{{data.goods_name}}" />
+		    <div class="box">
+		    	<img style="display:block;min-width:320px;width:100%;height:auto;" ng-src="{{item.thumb}}" alt="{{data.goods_name}}" />
 		    </div>
 		  </ion-slide>
 		</ion-slide-box>
-		<div class="grid">
+		<div class="grid padding">
 			<ul>
-				<li><h2>{{data.goods_name}}</h2></li>
+				<li><h2 class="goodsName">{{data.goods_name}}</h2></li>
 				<li><div class="row">
 					<div class="col col-50">重量：{{data.goods_weight}}</div>
 					<div class="col col-50">点击：{{data.click_count}}次</div>
@@ -27,7 +27,7 @@
 				<li><span data-ng-bind-html='data.shop_price'></span></li>
 			</ul>
 		</div>
-		<div class="grid">
+		<div class="grid padding">
 			<section class="goodsDesc" data-ng-bind-html='detail'>			
 			</section>
 		</div>

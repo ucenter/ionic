@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic-toast'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,6 +20,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+
+
   });
 })
 
@@ -38,19 +40,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
     }
 
-        $ionicConfigProvider.platform.ios.tabs.style('standard'); 
-        $ionicConfigProvider.platform.ios.tabs.position('bottom');
-        $ionicConfigProvider.platform.android.tabs.style('standard');
-        $ionicConfigProvider.platform.android.tabs.position('bottom');
+    $ionicConfigProvider.platform.ios.tabs.style('standard'); 
+    $ionicConfigProvider.platform.ios.tabs.position('bottom');
+    $ionicConfigProvider.platform.android.tabs.style('standard');
+    $ionicConfigProvider.platform.android.tabs.position('bottom');
 
-        $ionicConfigProvider.platform.ios.navBar.alignTitle('center'); 
-        $ionicConfigProvider.platform.android.navBar.alignTitle('center');
+    $ionicConfigProvider.platform.ios.navBar.alignTitle('center'); 
+    $ionicConfigProvider.platform.android.navBar.alignTitle('center');
 
-        $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-thin-left');
-        $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');        
+    $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-thin-left');
+    $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');        
 
-        $ionicConfigProvider.platform.ios.views.transition('ios'); 
-        $ionicConfigProvider.platform.android.views.transition('android');
+    $ionicConfigProvider.platform.ios.views.transition('ios'); 
+    $ionicConfigProvider.platform.android.views.transition('android');
+
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -74,10 +77,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/good-list.html',
     controller: 'goodListCtrl'
   })
-  .state('menu',{
+  .state('tab.menu',{
       url:'/menu/index',
       views:{
-        'menu-index': {
+        'tab-menu': {
           templateUrl: 'templates/menu-index.html',
           controller: 'menuIndexCtrl'   
         }
@@ -121,17 +124,55 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+    .state('tab.account', {
+      url: '/account',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account/tab-account.html',
+          controller: 'AccountCtrl'
+        }
       }
-    }
-  });
+    })
+    .state('tab.orderlist', {
+      url: '/orderlist',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account/tab-orderlist.html',
+          controller: 'orderlistCtrl'
+        }
+      }
+    })
+    .state('tab.collect', {
+      url: '/collect',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account/tab-collect.html',
+          controller: 'collectCtrl'
+        }
+      }
+    })
+    .state('tab.address', {
+      url: '/address',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account/tab-address.html',
+          controller: 'addressCtrl'
+        }
+      }
+    })
+    .state('login',{
+      url: '/login',
+      views: {
+        'login': {
+          templateUrl: 'templates/login.html',
+          controller: 'loginCtrl'
+        }
+      }
+    })            
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+
