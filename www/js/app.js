@@ -23,7 +23,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+
+
+    //修正 $http post请求
+    $httpProvider.defaults.transformRequest = function(obj){
+      var str = [];
+      for(var p in obj){
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+      }
+      return str.join("&");
+    }
+    $httpProvider.defaults.headers.post = {
+      'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+    }
 
         $ionicConfigProvider.platform.ios.tabs.style('standard'); 
         $ionicConfigProvider.platform.ios.tabs.position('bottom');

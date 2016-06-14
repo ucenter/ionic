@@ -32,11 +32,16 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('goodListCtrl', function($scope,$http,$stateParams,$ionicHistory, search){
-    $scope.$on('$ionicView.enter', function(e) { console.log(e) });
+.controller('goodListCtrl', function($scope,$http,$stateParams,$ionicHistory,$ionicNavBarDelegate, search){
+    $scope.$on('$ionicView.enter', function(e) { 
+      console.log(e) 
+      console.log($ionicNavBarDelegate)
+    });  
     $scope.goBack = function() {
-      $ionicHistory.goBack();
+      //$ionicHistory.goBack();
+      window.history.back();
     };
+
     $scope.listid = $stateParams.id;
     $scope.data = [];
 
@@ -85,9 +90,25 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('goodDetailCtrl', function($scope,$stateParams){
-  $scope.good = $stateParams.id;
-
+.controller('goodDetailCtrl', function($scope,$stateParams,$http,getData){
+  $scope.goodid = $stateParams.id;
+  var arg = {'json':JSON.stringify({'goods_id':$stateParams.id,'session':{'uid':'','sid':''}})};
+  getData.good(arg).success(function(res){
+    console.log('商品信息',res)
+    $scope.data = res.data;
+    getData.goodDesc({"goods_id":res.data.id}).success(function(resD){
+      console.log('商品详情',resD)
+      $scope.detail = resD.data.replace(/src="/g,'src="http://test.shizhencaiyuan.com/')
+    })
+  })
+  // $http({
+  //   method:'POST',
+  //   url:'http://test.shizhencaiyuan.com/PHP/?url=/goods',
+  //   headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+  //   data: arg
+  // }).success(function(res){
+  //   console.log(res)
+  // })
 
 })
 
