@@ -1,4 +1,4 @@
-<ion-view view-title="Account">
+<ion-view view-title="Account" name='tab.account'>
 	<ion-header-bar class="bar-stable">
 		<div class="buttons">
 			<a class="button"><i class="icon  ion-ios-gear"></i></a>
@@ -12,13 +12,13 @@
 	<ion-content>
 		<div class="grid">
 			<div class="userHead">
-				<div class="header">
-					<a class="link" href="">
+				<div class="header hide" ng-class='{show: isLogin}'>
+					<a class="link" href="#">
 						<img src="./img/default.png" alt="">
 						<span>username</span>						
 					</a>
 				</div>
-				<div class="header nologin hide">
+				<div class="header" ng-class='{hide: isLogin}'>
 					<a class="link" href="#/login">
 						<img src="./img/default.png" alt="">
 						<span>登陆/注册</span>
@@ -32,7 +32,7 @@
 			</div>
 		</div>  	
 		<ion-list>
-			<a href="" class="item item-icon-left item-icon-right">
+			<a href="#/tab/orderlist" class="item item-icon-left item-icon-right">
 				<i class="icon ion-ios-list energized"></i>
 				我的订单
 				<span class="item-note">查看全部订单</span>
@@ -45,7 +45,7 @@
 				<i class="icon ion-ios-arrow-right"></i>
 			</a>
 			<li class='item item-divider'></li>
-			<a href="" class='item item-icon-left item-icon-right'>
+			<a href="#/tab/address" class='item item-icon-left item-icon-right'>
 				<i class="icon ion-ios-location royal"></i>
 				收货地址
 				<i class="icon ion-ios-arrow-right"></i>

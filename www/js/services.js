@@ -53,10 +53,10 @@ angular.module('starter.services', ['ngResource'])
 .factory('init', function($http,getData){
   console.log('init')
   //初始化用户信息变量
-  var user = {"session":{"uid":"","sid":""}}
+  var user = {};
   
   //读取本地存储用户信息
-  user.session = JSON.stringify(getlocal('session'));
+  user.session = getlocal('session');
 
   //获取用户登录状态
   getData.user.info().success(function(res){
@@ -67,9 +67,13 @@ angular.module('starter.services', ['ngResource'])
   })
   function getlocal(a){
     return window.localStorage.getItem(a)
+  }
+  function setlocal(a,b){
+    return window.localStorage.setItem(a,b)
   } 
   return {
-    user: user
+    user: user,
+    setlocal:setlocal
   }
 })
 

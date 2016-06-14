@@ -1,11 +1,11 @@
 <ion-view title='商品列表' >
 	<ion-header-bar class="bar-positive">
 	  <div class="buttons">
-	    <button class="button" ng-click="goBack()"><i class="ion-chevron-left"></i></button>
+	    <a class="button icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
 	  </div>
 	  <h1 class="title">商品列表</h1>
 	  <div class="buttons">
-	    <button class="button"><i class="ion-home"></i></button>
+	    <a class="button icon-left ion-ios-home"></a>
 	  </div>
 	</ion-header-bar>
 	<ion-content>
@@ -14,8 +14,8 @@
 		    on-refresh="doRefresh()">
 		  </ion-refresher>	
 		<div class="list">
-			<a class="item item-thumbnail-left" ng-href="#/good/{{item.goods_id}}"ng-repeat='item in data'>
-				<img style="width:100px;" ng-src="{{item.img.small}}" alt="{{item.name}}" />					
+			<a class="item item-thumbnail-left" ng-href="#/good/{{::item.goods_id}}" ng-repeat='item in data'>
+				<img style="width:100px;" ng-src="{{::item.img.small}}" alt="{{::item.name}}" />					
 
 				<div class="info">
 					<h3>{{item.name}}</h3>

@@ -100,7 +100,7 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 })
 
-.controller('goodDetailCtrl', function($scope,$stateParams,$http,getData){
+.controller('goodDetailCtrl', function($scope,$stateParams,$http,getData,ionicToast){
   //商品详情页
   $scope.goodid = $stateParams.id;
   var arg = {'json':JSON.stringify({'goods_id':$stateParams.id,'session':{'uid':'','sid':''}})};
@@ -113,10 +113,19 @@ angular.module('starter.controllers', ['ngAnimate'])
     })
   })
 
+  $scope.addCart = function(){
+    ionicToast.show('已加入购物车', 'middle', false, 2500);    
+  }
+
 })
 
 .controller('AccountCtrl', function($scope,getData,init,ionicToast) {
   //个人中心页
+  if(init.user.session){
+    $scope.isLogin = true
+  }else{
+    $scope.isLogin = false;    
+  }
   $scope.settings = {
     enableFriends: true
   };
@@ -130,9 +139,45 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 })
 
-.controller('loginCtrl', function(){
-  
+.controller('orderlistCtrl', function($scope,getData,init){
+
+})
+
+.controller('addressCtrl', function($scope,getData,init){
+
+})
+
+.controller('loginCtrl', function($scope,$ionicHistory,getData,init,ionicToast){
+    $scope.data = {};
+    $scope.login = function(){
+      if (!$scope.data.username && !$scope.data.password) {
+        ionicToast.show('用户名密码不难为空', 'middle', false, 2500);    
+      }else{
+          getData.user.signin({
+            'json':JSON.stringify({'name':$scope.data.username,'password':$scope.data.password})
+          }).success(function(res){
+            console.log(res)
+            if (res.status.succeed === 0) {
+              ionicToast.show(res.status.error_desc, 'middle', false, 2500);
+
+            }else{
+              ionicToast.show('登录成功', 'middle', false, 2500);
+              res.data.session
+              init.setlocal('session','sid:'+res.data.session.sid+',uid:'+res.data.session.uid+' ')
+              if (history.length > 2) {
+                history.back();                
+              }else{
+                state.go('tab.account')
+              }
+            }
+
+          })     
+        
+      }
+    }
 })
 .controller('menuIndexCtrl', function($scope){
   
 })
+
+
