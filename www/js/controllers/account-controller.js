@@ -14,21 +14,25 @@ angular.module('starter.controllers')
 	})
 
 	$scope.initUser = initUser;
+	if(initUser.session.sid){
+		console.log('会员已经登陆',initUser)
+		$scope.isLogin = true;					
+	}else{
+		$scope.isLogin = false;    
+	};
 
 	//监听全局用户
 	$scope.$watch('initUser',function(newV,oldV){
 		if (newV !== oldV) {
 			alert('changed')
+			if (initUser.session.sid) {
+				$scope.isLogin = true;
+			}else{
+				$scope.isLogin = false;
+			}
 		}
 	},true)
 	
-	if(initUser.session.sid){
-		console.log('会员已经登陆',initUser)
-		$scope.isLogin = true;
-		$scope.user = initUser;			
-	}else{
-		$scope.isLogin = false;    
-	};
 
 	$scope.settings = {
 		enableFriends: true
@@ -48,15 +52,20 @@ angular.module('starter.controllers')
 	
 })
 
-.controller('orderlistCtrl', function($scope,getData){
-
+.controller('orderlistCtrl', function($scope,$state,getData,initUser){
+	$scope.$on('$ionicView.beforeEnter',function(){
+		// 判断是否登陆
+		// if(!initUser.isLogin){
+		// 	$state.go('login')
+		// }
+	})
 })
 
 .controller('addressCtrl', function($scope,getData){
 
 })
 
-.controller('loginCtrl', function($scope,$ionicHistory,getData,initUser,ionicToast){
+.controller('loginCtrl', function($scope,$state,$ionicHistory,getData,initUser,ionicToast){
 	$scope.data = {
 		'username': 'test',
 		'password': 'test888'
@@ -92,11 +101,12 @@ angular.module('starter.controllers')
 						.success(function(res){
 							console.log(res)
 							initUser.setInfo(res.data)
+							$state.go(fromParams,{}, {reload: true}); 
+							//$scope.$ionicGoBack();
 						})
 					},0)
 					
 					//initUser.setLocal('session','sid:'+res.data.session.sid+',uid:'+res.data.session.uid+' ')
-					$scope.$ionicGoBack();
 				}
 
 			})  

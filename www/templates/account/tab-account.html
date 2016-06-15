@@ -15,10 +15,10 @@
 				<div class="header hide" ng-class='{show: isLogin}'>
 					<a class="link" href="#">
 						<img src="./img/default.png" alt="">
-						<span ng-bind='user.info.name'></span>						
+						<span ng-bind='initUser.info.name'></span>						
 					</a>
 				</div>
-				<div class="header" ng-class='{hide: isLogin}'>
+				<div class="header" ng-class='{hide: initUser.session.sid}'>
 					<a class="link" href="#/login">
 						<img src="./img/default.png" alt="">
 						<span>登陆/注册</span>
@@ -52,7 +52,7 @@
 			</a>			
 		    <li class="item" ng-click='showToast()'>ionic-toast</li>
 		    
-		    	<a class="item assertive hide" ng-click='loginOut()' ng-class='{show: isLogin}'>退出登录</a>
+		    	<a class="item assertive hide" ng-click='loginOut()' ng-class='{show: initUser.session.sid}'>退出登录</a>
 		    
 		    <ion-toggle  ng-model="settings.enableFriends">
 		        Enable Friend

@@ -50,33 +50,6 @@ angular.module('starter.services', ['ngResource'])
 })
 
 
-// .factory('init', function($http,getData){
-
-//   //初始化用户信息变量
-//   var user = {};
-  
-//   //读取本地存储用户信息
-//   //user.session = getLocal('session');
-
-//   //获取用户登录状态
-//   // getData.user.info(user.session).success(function(res){
-//   //   console.log('初始化用户',res)
-//   //   if (res.status.error_code == 100) {
-      
-//   //   }
-//   // })
-
-//   var loginOut = function(){
-//     removeLocal('session')
-//     user.session = ''; 
-//   } 
-//   return {
-//     user: user,
-//     //setLocal:setLocal,
-//     loginOut:loginOut
-//   }
-// })
-
 .factory('getData', function($http){
   var url = 'http://test.shizhencaiyuan.com/PHP/?url=';
   return {
@@ -212,13 +185,14 @@ angular.module('starter.services', ['ngResource'])
 })
 
 
-.service('initUser', ['$http','getData', function($http,getData){
+.service('initUser', ['$rootScope','$http','getData', function($rootScope,$http,getData){
     var initUser = {};//初始用户全局变量
         initUser.session = {
           'sid':'',
           'uid':''
         }
         initUser.info = {};
+        initUser.isLogin = false;
     //读取本地存储
     if (getData.getLocal('sid') && getData.getLocal('sid').length == 40 && getData.getLocal('uid')) {
         initUser.session.sid = getData.getLocal('sid');
@@ -234,6 +208,7 @@ angular.module('starter.services', ['ngResource'])
           console.log(res)
           if (res.status.succeed == 1) {
               initUser.info = res.data
+              initUser.isLogin = true;
               //setInfo(res.data)            
           }else{
               console.log('用户信息错误')
@@ -252,6 +227,7 @@ angular.module('starter.services', ['ngResource'])
       getData.removeLocal('sid')
       initUser.session = {};
       initUser.info = {};
+      initUser.isLogin = false;
     }
 
     //设置用户session值
@@ -263,6 +239,6 @@ angular.module('starter.services', ['ngResource'])
     }
 
 
-    //返回用户状态
+    //返回用户状态服务
     return initUser;
 }])
