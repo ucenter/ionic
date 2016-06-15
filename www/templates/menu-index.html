@@ -7,7 +7,7 @@
 			<ul>
 				<li ng-repeat='item in data'>					
 					<h5>{{item.name}}</h5>
-					<div class="padding"><a ng-href='#/tab/menulist/{{list.id}}' ng-repeat='list in item.list track by $index'>{{list.name}}</a></div>
+					<div class="padding"><a href='#/menulist/{{list.id}}' ng-repeat='list in item.list track by $index'>{{list.name}}</a></div>
 				</li>
 			</ul>
 		</div>

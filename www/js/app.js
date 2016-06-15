@@ -176,23 +176,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     }
   })
-  .state('tab.menulist',{
+  .state('menulist',{
       url:'/menulist/:id',
-      views:{
-        'tab-menu': {
-          templateUrl: 'templates/menu-list.html',
-          controller: 'menuListCtrl'   
-        }
-    }
+      templateUrl: 'templates/menu-list.html',
+      controller: 'menuListCtrl'   
   })
-  .state('tab.menudetail',{
+  .state('menudetail',{
       url:'/menudetail/:id',
-      views:{
-        'tab-menu': {
-          templateUrl: 'templates/menu-list.html',
-          controller: 'menuListCtrl'   
-        }
-    }
+      templateUrl: 'templates/menu-list.html',
+      controller: 'menuListCtrl'   
   })             
 
   // if none of the above states are matched, use this as the fallback
