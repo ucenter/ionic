@@ -1,0 +1,14 @@
+<ion-header-bar class=" bar-header bar-calm">
+  <h1 class="title">菜谱列表</h1>
+</ion-header-bar>
+<ion-view>
+	<ion-content>
+		<div class="list" ng-repeat='item in data'>
+			<a class="item item-thumbnail-left" href="#/tab/menudetail/{{item.id}}">
+				<img ng-src="{{item.albums}}">
+				<h2>{{item.title}}</h2>
+				<p>{{item.imtro}}</p>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

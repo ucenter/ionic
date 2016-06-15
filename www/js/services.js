@@ -179,7 +179,14 @@ angular.module('starter.services', ['ngResource'])
       },
       removeLocal: function(a){
         return window.localStorage.removeItem(a)
+      },
+      menuCate: function(){
+        return $http.get('/server-demo/menu-category.json')
+      },
+      menuList: function(){
+        return $http.get('/server-demo/menu-list.json')
       }
+
   }
   
 })

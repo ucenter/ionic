@@ -1,10 +1,15 @@
+<ion-header-bar class=" bar-header bar-calm">
+  <h1 class="title">菜谱首页</h1>
+</ion-header-bar>
 <ion-view>
-	<div class="bar bar-header bar-calm">
-	  <h1 class="title">菜谱</h1>
-	</div>
 	<ion-content>
-		<div class="grid">
-			menu index
+		<div class="padding">
+			<ul>
+				<li ng-repeat='item in data'>					
+					<h5>{{item.name}}</h5>
+					<div class="padding"><a ng-href='#/tab/menulist/{{list.id}}' ng-repeat='list in item.list track by $index'>{{list.name}}</a></div>
+				</li>
+			</ul>
 		</div>
 
 	</ion-content>

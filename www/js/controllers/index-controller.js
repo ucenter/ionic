@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('DashCtrl', function($scope,$http,getData,initUser) {
+.controller('indexCtrl', function($scope,$http,getData,initUser) {
 	//首页
 	console.log('首页',initUser)
 	$scope.data = [];
@@ -17,5 +17,8 @@ angular.module('starter.controllers')
 			})    
 		}
 	});
+	$scope.focus = function(e){
+		console.log('focus',e)
+	}
 
 })

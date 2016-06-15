@@ -86,16 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/goodlist/:id',
     templateUrl: 'templates/good-list.html',
     controller: 'goodListCtrl'
-  })
-  .state('tab.menu',{
-      url:'/menu/index',
-      views:{
-        'tab-menu': {
-          templateUrl: 'templates/menu-index.html',
-          controller: 'menuIndexCtrl'   
-        }
-    }
-  }) 
+  })    
     .state('login',{
       url: '/login',
       templateUrl: 'templates/login.html',
@@ -108,7 +99,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'indexCtrl'
       }
     }
   })
@@ -176,7 +167,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-         
+  .state('tab.menuindex',{
+      url:'/menuindex',
+      views:{
+        'tab-menu': {
+          templateUrl: 'templates/menu-index.html',
+          controller: 'menuIndexCtrl'   
+        }
+    }
+  })
+  .state('tab.menulist',{
+      url:'/menulist/:id',
+      views:{
+        'tab-menu': {
+          templateUrl: 'templates/menu-list.html',
+          controller: 'menuListCtrl'   
+        }
+    }
+  })
+  .state('tab.menudetail',{
+      url:'/menudetail/:id',
+      views:{
+        'tab-menu': {
+          templateUrl: 'templates/menu-list.html',
+          controller: 'menuListCtrl'   
+        }
+    }
+  })             
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
