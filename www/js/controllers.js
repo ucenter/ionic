@@ -84,7 +84,8 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 .controller('menuListCtrl',function($scope,$state,$stateParams,getData){
     getData.menuList().success(function(res){
-      $scope.data = res.result;
+      console.log(res)
+      $scope.data = res.result.data;
     })
 })
 
