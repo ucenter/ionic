@@ -1,4 +1,7 @@
 <ion-view view-title="Login" name="login">
+  <ion-header-bar class='bar-calm'>
+    <h1 class="title">用户登录</h1><button class="button">注册用户</button>
+  </ion-header-bar>
   <ion-content class="padding">
       <div class="list list-inset">
           <label class="item item-input">
@@ -8,6 +11,10 @@
               <input type="password" placeholder="Password" ng-model="data.password">
           </label>
       </div>
+      <ion-toggle  ng-model="settings.savePassword">
+          保存密码
+      </ion-toggle>
       <button class="button button-block button-calm" ng-click="login()">登录</button>
+      <p><a href="#/tab/dash">随便逛逛</a><a class="fr" href="#/register">忘记密码？</a></p>
   </ion-content>
 </ion-view>

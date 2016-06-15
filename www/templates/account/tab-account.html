@@ -15,7 +15,7 @@
 				<div class="header hide" ng-class='{show: isLogin}'>
 					<a class="link" href="#">
 						<img src="./img/default.png" alt="">
-						<span>username</span>						
+						<span ng-bind='user.info.name'></span>						
 					</a>
 				</div>
 				<div class="header" ng-class='{hide: isLogin}'>
@@ -51,6 +51,9 @@
 				<i class="icon ion-ios-arrow-right"></i>
 			</a>			
 		    <li class="item" ng-click='showToast()'>ionic-toast</li>
+		    
+		    	<a class="item assertive hide" ng-click='loginOut()' ng-class='{show: isLogin}'>退出登录</a>
+		    
 		    <ion-toggle  ng-model="settings.enableFriends">
 		        Enable Friend
 		    </ion-toggle>

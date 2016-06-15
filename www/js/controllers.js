@@ -1,23 +1,6 @@
 angular.module('starter.controllers', ['ngAnimate'])
 
-.controller('DashCtrl', function($scope,$http,getData) {
-  //首页
-  $scope.data = [];
-  $scope.list = [];
-  getData.homeData().success(function(res){
-      console.log('首页数据',res)
-      if (res.status.succeed) {
-          $scope.data = res.data;
-          getData.homeCategory().success(function(res){
-              console.log('首页分类',res)
-              if (res.status.succeed) {
-                $scope.list = res.data;
-              }
-          })    
-      }
-  });
 
-})
 
 .controller('ChatsCtrl', function($scope,getData) {
   // With the new view caching in Ionic, Controllers are only called
@@ -36,20 +19,12 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 })
 
-.controller('goodListCtrl', function($scope,$http,$stateParams,$ionicHistory,$ionicNavBarDelegate, getData){
+.controller('goodListCtrl', function($scope,$http,$stateParams,$ionicNavBarDelegate, getData){
     //商品列表页
     $scope.$on('$ionicView.enter', function(e) { 
       console.log(e) 
       console.log($ionicNavBarDelegate)
     });  
-    $scope.goBack = function() {
-      //$ionicHistory.goBack();
-      if (window.history.length > 2) {
-        window.history.back();        
-      }else{
-
-      }
-    };
 
     $scope.listid = $stateParams.id;
     $scope.data = [];
@@ -119,63 +94,7 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 })
 
-.controller('AccountCtrl', function($scope,getData,init,ionicToast) {
-  //个人中心页
-  if(init.user.session){
-    $scope.isLogin = true
-  }else{
-    $scope.isLogin = false;    
-  }
-  $scope.settings = {
-    enableFriends: true
-  };
-  getData.address.list().success(function(res){
-    //console.log(res)
-  })
-  console.log(init.user)
-  $scope.showToast = function(){
-    ionicToast.show('init', 'middle', false, 2500);    
-  }
 
-})
-
-.controller('orderlistCtrl', function($scope,getData,init){
-
-})
-
-.controller('addressCtrl', function($scope,getData,init){
-
-})
-
-.controller('loginCtrl', function($scope,$ionicHistory,getData,init,ionicToast){
-    $scope.data = {};
-    $scope.login = function(){
-      if (!$scope.data.username && !$scope.data.password) {
-        ionicToast.show('用户名密码不难为空', 'middle', false, 2500);    
-      }else{
-          getData.user.signin({
-            'json':JSON.stringify({'name':$scope.data.username,'password':$scope.data.password})
-          }).success(function(res){
-            console.log(res)
-            if (res.status.succeed === 0) {
-              ionicToast.show(res.status.error_desc, 'middle', false, 2500);
-
-            }else{
-              ionicToast.show('登录成功', 'middle', false, 2500);
-              res.data.session
-              init.setlocal('session','sid:'+res.data.session.sid+',uid:'+res.data.session.uid+' ')
-              if (history.length > 2) {
-                history.back();                
-              }else{
-                state.go('tab.account')
-              }
-            }
-
-          })     
-        
-      }
-    }
-})
 .controller('menuIndexCtrl', function($scope){
   
 })

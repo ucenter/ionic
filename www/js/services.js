@@ -50,32 +50,32 @@ angular.module('starter.services', ['ngResource'])
 })
 
 
-.factory('init', function($http,getData){
-  console.log('init')
-  //初始化用户信息变量
-  var user = {};
-  
-  //读取本地存储用户信息
-  user.session = getlocal('session');
+// .factory('init', function($http,getData){
 
-  //获取用户登录状态
-  getData.user.info().success(function(res){
-    console.log('初始化用户',res)
-    if (res.status.error_code == 100) {
+//   //初始化用户信息变量
+//   var user = {};
+  
+//   //读取本地存储用户信息
+//   //user.session = getLocal('session');
+
+//   //获取用户登录状态
+//   // getData.user.info(user.session).success(function(res){
+//   //   console.log('初始化用户',res)
+//   //   if (res.status.error_code == 100) {
       
-    }
-  })
-  function getlocal(a){
-    return window.localStorage.getItem(a)
-  }
-  function setlocal(a,b){
-    return window.localStorage.setItem(a,b)
-  } 
-  return {
-    user: user,
-    setlocal:setlocal
-  }
-})
+//   //   }
+//   // })
+
+//   var loginOut = function(){
+//     removeLocal('session')
+//     user.session = ''; 
+//   } 
+//   return {
+//     user: user,
+//     //setLocal:setLocal,
+//     loginOut:loginOut
+//   }
+// })
 
 .factory('getData', function($http){
   var url = 'http://test.shizhencaiyuan.com/PHP/?url=';
@@ -115,25 +115,25 @@ angular.module('starter.services', ['ngResource'])
       },
       user: {
         signin: function(arg){
-          return $http.post(url+'/user/signin',arg)
+          return $http.post(url+'/user/signin',{'json': JSON.stringify(arg)})
         },
         signup: function(arg){
-          return $http.post(url+'/user/signup',arg)
+          return $http.post(url+'/user/signup',{'json': JSON.stringify(arg)})
         },
         signupFields: function(){
           return $http.post(url+'/user/signupFields')
         },
         info: function(arg){
-          return $http.post(url+'/user/info',arg)
+          return $http.post(url+'/user/info',{'json': JSON.stringify(arg)})
         },
         collectCreate: function(arg){
-          return $http.post(url+'/user/collect/create',arg)
+          return $http.post(url+'/user/collect/create',{'json': JSON.stringify(arg)})
         },
         collectDelete: function(arg){
-          return $http.post(url+'/user/collect/delete',arg)
+          return $http.post(url+'/user/collect/delete',{'json': JSON.stringify(arg)})
         },
         collectList: function(arg){
-          return $http.post(url+'/user/collect/list',arg)
+          return $http.post(url+'/user/collect/list',{'json': JSON.stringify(arg)})
         }
       },
       address: {
@@ -197,9 +197,72 @@ angular.module('starter.services', ['ngResource'])
       },
       price_range: function(category_id){
         return $http.post(url+'/price_range',arg)
+      },
+      getLocal: function(a){
+        return window.localStorage.getItem(a)
+      },
+      setLocal: function(a,b){
+        return window.localStorage.setItem(a,b)
+      },
+      removeLocal: function(a){
+        return window.localStorage.removeItem(a)
       }
-
-
   }
   
 })
+
+
+.service('initUser', ['$http','getData', function($http,getData){
+    var initUser = {};//初始用户全局变量
+        initUser.session = {
+          'sid':'',
+          'uid':''
+        }
+        initUser.info = {};
+    //读取本地存储
+    if (getData.getLocal('sid') && getData.getLocal('sid').length == 40 && getData.getLocal('uid')) {
+        initUser.session.sid = getData.getLocal('sid');
+        initUser.session.uid = getData.getLocal('uid');    
+        //判断是否登陆
+
+        getData.user.info({
+          "session":{
+            "sid":initUser.session.sid,
+            "uid":initUser.session.uid
+          }
+        }).success(function(res){
+          console.log(res)
+          if (res.status.succeed == 1) {
+              initUser.info = res.data
+              //setInfo(res.data)            
+          }else{
+              console.log('用户信息错误')
+          }
+
+        })
+
+    }
+
+    initUser.setInfo = function(info){
+      initUser.info = info;
+    }
+
+    initUser.loginOut = function(){
+      getData.removeLocal('uid')
+      getData.removeLocal('sid')
+      initUser.session = {};
+      initUser.info = {};
+    }
+
+    //设置用户session值
+    initUser.setSession = function(s,u){
+        initUser.session.uid = u;
+        initUser.session.sid = s;
+        getData.setLocal('uid',u)
+        getData.setLocal('sid',s)
+    }
+
+
+    //返回用户状态
+    return initUser;
+}])
