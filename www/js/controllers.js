@@ -82,12 +82,35 @@ angular.module('starter.controllers', ['ngAnimate'])
     })
 })
 
-.controller('menuListCtrl',function($scope,$state,$stateParams,getData){
+.controller('menuListCtrl',function($scope,$state,$stateParams,$ionicModal,getData){
+    console.log($state,$stateParams)
+    $scope.data = [];
+    $scope.detail = [];
     getData.menuList().success(function(res){
       console.log(res)
       $scope.data = res.result.data;
     })
+
+    $ionicModal.fromTemplateUrl('templates/menu-detail.html',{            
+      scope: $scope,
+      animation:'slide-in-up'
+    }).then(function(modal){
+      $scope.modal = modal;
+    })
+
+    $scope.goDetail = function(){
+      $scope.modal.show();
+    }
+    $scope.$on('$ionicView.enter',function(){
+      $scope.name = $state.current.name 
+      console.log($scope.name)
+    })
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });    
+    
 })
+
 
 
 

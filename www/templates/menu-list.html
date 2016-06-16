@@ -3,12 +3,12 @@
 </ion-header-bar>
 <ion-view>
 	<ion-content>
-		<div class="list" ng-repeat='item in data'>
-			<a class="item item-thumbnail-left" href="#/menudetail/{{item.id}}">
+		<ion-list ng-repeat='item in data'>
+			<a class="item item-thumbnail-left" ng-click='goDetail({{item.id}})' >
 				<img ng-src="{{item.albums[0]}}" />
 				<h2>{{item.title}}</h2>
 				<p>{{item.imtro}}</p>
 			</a>
-		</div>
+		</ion-list>
 	</ion-content>
 </ion-view>

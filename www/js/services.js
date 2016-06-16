@@ -185,6 +185,9 @@ angular.module('starter.services', ['ngResource'])
       },
       menuList: function(){
         return $http.get('/server-demo/menu-list.json')
+      },
+      menuDetail: function(){
+        return $http.get('/server-demo/menu-detail.json')
       }
 
   }
