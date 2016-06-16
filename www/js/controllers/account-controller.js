@@ -4,7 +4,7 @@ angular.module('starter.controllers')
 	//个人中心页
 	$scope.$on('$ionicView.beforeEnter',function(){
 		$ionicLoading.show({
-			template: 'Loading...'
+			template: '加载中...'
 		}).then(function(){
 			console.log("The loading indicator is now displayed",initUser);
 		});
@@ -24,7 +24,7 @@ angular.module('starter.controllers')
 	//监听全局用户
 	$scope.$watch('initUser',function(newV,oldV){
 		if (newV !== oldV) {
-			alert('changed')
+			//alert('changed')
 			if (initUser.session.sid) {
 				$scope.isLogin = true;
 			}else{
@@ -49,6 +49,41 @@ angular.module('starter.controllers')
 		initUser.loginOut();
 		ionicToast.show('退出', 'middle', false, 2500);
 	}
+
+
+	//日期控件
+	var weekDaysList = ["日", "一", "二", "三", "四", "五", "六"];
+	var monthList = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+	var datePickerCallback = function (val) {
+	    if (typeof(val) === 'undefined') {
+	        console.log('No date selected');
+	    } else {
+	        console.log('Selected date is : ', val);
+	        $scope.datepickerObject.inputDate = val;
+	    }
+	};
+	$scope.datepickerObject = {
+	    titleLabel: '日期选择',  //Optional
+	    todayLabel: '今天',  //Optional
+	    closeLabel: '取消',  //Optional
+	    setLabel: '确定',  //Optional
+	    setButtonType: 'button-calm',  //Optional
+	    todayButtonType: 'button-calm',  //Optional
+	    closeButtonType: 'button-calm',  //Optional
+	    inputDate: new Date(),    //Optional
+	    mondayFirst: false,    //Optional
+	    //disabledDates: disabledDates, //Optional
+	    weekDaysList: weekDaysList,   //Optional
+	    monthList: monthList, //Optional
+	    templateType: 'modal', //Optional
+	    modalHeaderColor: 'bar-calm', //Optional
+	    modalFooterColor: 'bar-calm', //Optional
+	    from: new Date(),   //Optional
+	    to: new Date(2018, 12, 31), //Optional
+	    callback: function (val) {    //Mandatory
+	        datePickerCallback(val);
+	    }
+	};	
 	
 })
 
@@ -65,7 +100,8 @@ angular.module('starter.controllers')
 
 })
 
-.controller('loginCtrl', function($scope,$state,$ionicHistory,getData,initUser,ionicToast){
+.controller('loginCtrl', function($scope,$rootScope,$state,$ionicHistory,getData,initUser,ionicToast){
+	console.log($ionicHistory)
 	$scope.data = {
 		'username': 'test',
 		'password': 'test888'
@@ -73,6 +109,9 @@ angular.module('starter.controllers')
 	$scope.settings = {
 		savePassword: true
 	};
+	$scope.back = function(){
+		history.back();
+	}
 	$scope.login = function(){
 		if (!$scope.data.username && !$scope.data.password) {
 			ionicToast.show('用户名密码不难为空', 'middle', false, 2500);
@@ -101,12 +140,13 @@ angular.module('starter.controllers')
 						.success(function(res){
 							console.log(res)
 							initUser.setInfo(res.data)
-							$state.go(fromParams,{}, {reload: true}); 
-							//$scope.$ionicGoBack();
+							//$state.go('fromParams',{}, {reload: true}); 
+							//$rootScope.$ionicGoBack();
+							//$ionicHistory.goBack()
+							history.back();
 						})
 					},0)
 					
-					//initUser.setLocal('session','sid:'+res.data.session.sid+',uid:'+res.data.session.uid+' ')
 				}
 
 			})  

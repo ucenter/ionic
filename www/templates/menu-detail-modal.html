@@ -1,0 +1,24 @@
+  <ion-modal-view class='menuDetailModal'>
+    <ion-header-bar>
+    	<button class="button icon-left ion-close" ng-click='closeModal()'></button>
+      <h1 class="title">{{detail.title}}</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+
+      	<div class="box">
+	      	<img ng-src="{{detail.albums[0]}}" alt="">      		
+      	</div>
+      	<div class="">
+      		<p>主料：{{detail.ingredients}}</p>
+      		<p>配料：{{detail.burden}}</p>
+      		<p>{{detail.imtro}}</p>
+      	</div>
+      	<div>
+      		<div ng-repeat='step in detail.steps'>
+      			<img ng-src="{{step.img}}" alt="">
+      			<p>{{step.step}}</p>
+      		</div>
+      	</div>
+
+    </ion-content>
+  </ion-modal-view>

@@ -5,11 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic-toast'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic-toast','ionic-datepicker'])
 
 .run(function($ionicPlatform,$rootScope,$ionicHistory,$state) {
 
-/*
+
     var needLoginView = ["tab.cart"];//需要登录的页面state
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams, options){ 
         if(needLoginView.indexOf(toState.name)>=0&&!$rootScope.isLogin){//判断当前是否登录
@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             event.preventDefault(); //阻止默认事件，即原本页面的加载
         }
     });
-*/
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -38,17 +38,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
 
-    //修正 $http post请求
-    $httpProvider.defaults.transformRequest = function(obj){
-      var str = [];
-      for(var p in obj){
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+      //修正 $http post请求
+      $httpProvider.defaults.transformRequest = function(obj){
+        var str = [];
+        for(var p in obj){
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+        }
+        return str.join("&");
       }
-      return str.join("&");
-    }
-    $httpProvider.defaults.headers.post = {
-      'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-    }
+      $httpProvider.defaults.headers.post = {
+        'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+      }
+
+      //双击退出
+      if (window.cordova && window.plugins && window.cordova.plugins.Toast){
+          $ionicPlatform.registerBackButtonAction(function (e) {
+              //判断处于哪个页面时双击退出
+              if ($location.path() == '/tab/home') {
+                  if ($rootScope.backButtonPressedOnceToExit) {
+                      ionic.Platform.exitApp();
+                  } else {
+                      $rootScope.backButtonPressedOnceToExit = true;
+                      cordova.plugins.Toast.showShortTop('再按一次退出系统');
+                      setTimeout(function () {
+                          $rootScope.backButtonPressedOnceToExit = false;
+                      }, 2000);
+                  }
+              }
+              else if ($ionicHistory.backView()) {
+                  console.log('backView')
+                  $ionicHistory.goBack();
+              } else {
+                  $rootScope.backButtonPressedOnceToExit = true;
+                  cordova.plugins.Toast.showShortTop('再按一次退出系统');
+                  setTimeout(function () {
+                      $rootScope.backButtonPressedOnceToExit = false;
+                  }, 2000);
+              }
+              e.preventDefault();
+              return false;
+          }, 101);
+      }
+
+    $ionicConfigProvider.scrolling.jsScrolling(false);//原生滚动
 
     $ionicConfigProvider.platform.ios.tabs.style('standard'); 
     $ionicConfigProvider.platform.ios.tabs.position('bottom');
@@ -77,16 +109,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
-  .state('good',{
-      url:'/good/:id',
-      controller:'goodDetailCtrl',
-      templateUrl: 'templates/good-detail.html'
-  })
   .state('goodList', {
     url: '/goodlist/:id',
     templateUrl: 'templates/good-list.html',
     controller: 'goodListCtrl'
   })    
+  .state('good',{
+      url:'/good/:id',
+      controller:'goodDetailCtrl',
+      templateUrl: 'templates/good-detail.html'
+  })
     .state('login',{
       url: '/login',
       templateUrl: 'templates/login.html',
@@ -183,8 +215,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
   .state('menudetail',{
       url:'/menudetail/:id',
-      templateUrl: 'templates/menu-list.html',
-      controller: 'menuListCtrl'   
+      templateUrl: 'templates/menu-detail.html',
+      controller: 'menuDetailCtrl'   
   })             
 
   // if none of the above states are matched, use this as the fallback

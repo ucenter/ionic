@@ -181,13 +181,16 @@ angular.module('starter.services', ['ngResource'])
         return window.localStorage.removeItem(a)
       },
       menuCate: function(){
-        return $http.get('/server-demo/menu-category.json')
+        return $http.get('./server-demo/menu-category.json')
       },
       menuList: function(){
-        return $http.get('/server-demo/menu-list.json')
+        return $http.get('./server-demo/menu-list.json')
       },
       menuDetail: function(){
-        return $http.get('/server-demo/menu-detail.json')
+        return $http.get('./server-demo/menu-detail.json')
+      },
+      menuSearch: function(){
+        return $http.get('./server-demo/menu-search.json')
       }
 
   }
@@ -221,7 +224,8 @@ angular.module('starter.services', ['ngResource'])
               initUser.isLogin = true;
               //setInfo(res.data)            
           }else{
-              console.log('用户信息错误')
+              console.log(res.status.error_desc)
+              initUser.loginOut()
           }
 
         })

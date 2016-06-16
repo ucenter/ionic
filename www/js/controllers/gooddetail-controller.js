@@ -12,7 +12,8 @@ angular.module('starter.controllers')
 		})
 	})
 	$scope.goBack = function(){
-		$ionicHistory.goBack();
+		//$ionicHistory.goBack();
+		history.back();
 	}
 	$scope.addCart = function(){
 		ionicToast.show('已加入购物车', 'middle', false, 2500);    

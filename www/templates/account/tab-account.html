@@ -57,7 +57,14 @@
 		    <ion-toggle  ng-model="settings.enableFriends">
 		        Enable Friend
 		    </ion-toggle>
-
+			<label class="item item-input">
+			    <span class="input-label">服务日期：</span>
+			    <ionic-datepicker input-obj="datepickerObject" class="item-button-right">
+			        <button class="button button-clear button-positive">
+			            {{datepickerObject.inputDate | date:'yyyy-MM-dd'}}
+			        </button>
+			    </ionic-datepicker>
+			</label>
 		</ion-list>
 	</ion-content>
 </ion-view>

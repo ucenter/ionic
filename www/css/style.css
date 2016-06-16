@@ -299,6 +299,10 @@ a{
 .AbsoluteCenter{
   position: absolute;top: 0;left: 0;right: 0;bottom:0;margin: auto;height: 50%;text-align: center;
 }
+.modal-backdrop{
+  width: 96%;height: 96%;top: 2%;left: 2%;
+}
+
 .text-center{
 	text-align: center;
 }
@@ -313,6 +317,12 @@ a{
 	font-size: 20px;
 }
 
+.slider-slide .box img{min-width:320px;width: 100%;height: auto;display: block;}
+.slider-slide .box{text-align: center;}
+.menuDetailModal{
+  box-shadow: 3px 3px 5px rgba(0,0,0,.8);
+  border: 2px solid #000; 
+}
 
 /* tab-account */
 .userHead{
