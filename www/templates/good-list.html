@@ -1,26 +1,43 @@
 <ion-view title='商品列表' >
-	<ion-header-bar class="bar-positive">
+<!-- 	<ion-header-bar class="bar-positive">
 	  <div class="buttons">
 	    <a class="button icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
 	  </div>
 	  <h1 class="title">商品列表</h1>
 	  <div class="buttons">
+	  	<a class="button icon-left ion-ios-search"></a>
 	    <a class="button icon-left ion-ios-home"></a>
 	  </div>
-	</ion-header-bar>
-	<ion-content>
+	</ion-header-bar> -->
+	<div class="bar bar-header item-input-inset">
+		<div class="buttons">
+			<a class="button icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
+		</div>		
+		<label class="item-input-wrapper">
+		<i class="icon ion-ios-search placeholder-icon"></i>
+		<input type="search"placeholder="Search"></label>
+		<button class="button button-clear">Cancel</button>
+	</div>	
+	<div class="bar bar-subheader">
+		<div class="tabs tabs-icon-right">
+			<a class="tab-item">综合<i class="icon ion-ios-arrow-down"></i></a>
+			<a class="tab-item">销量<i class="icon ion-android-arrow-dropdown"></i></a>
+			<a class="tab-item">价格<i class="icon ion-android-arrow-dropdown"></i></a>
+			<a class="tab-item">筛选<i class="icon ion-funnel"></i></a>
+		</div>
+	</div>
+	<ion-content class="goodListContent">
 		<ion-refresher
 		    pulling-text="下拉刷新..."
 		    on-refresh="doRefresh()">
-		  </ion-refresher>	
+		 </ion-refresher>	
 		<div class="list">
 			<a class="item item-thumbnail-left" ng-href="#/good/{{::item.goods_id}}" ng-repeat='item in data'>
-				<img style="width:100px;" ng-src="{{::item.img.small}}" alt="{{::item.name}}" />					
-
+				<img style="width:100px;" ng-src="{{::item.img.small}}" alt="{{::item.name}}"/>
 				<div class="info">
 					<h3>{{item.name}}</h3>
 					<p>
-						<span>价格<span class="shop_price" data-ng-bind-html="item.shop_price"></span></span>
+						<span class="assertive shop_price" data-ng-bind-html="item.shop_price"></span>
 						<span><i class="">加入购物车</i></span>
 						<span>收藏</span>
 					</p>

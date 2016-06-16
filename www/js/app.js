@@ -7,6 +7,12 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic-toast','ionic-datepicker'])
 
+.value('common',{
+  back:function(){
+    return window.history.back();
+  }
+})
+
 .run(function($ionicPlatform,$rootScope,$ionicHistory,$state) {
 
 
@@ -201,6 +207,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
   .state('tab.menuindex',{
       url:'/menuindex',
+      cache: true,
       views:{
         'tab-menu': {
           templateUrl: 'templates/menu-index.html',
@@ -210,6 +217,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
   .state('menulist',{
       url:'/menulist/:id',
+      cache:true,
       templateUrl: 'templates/menu-list.html',
       controller: 'menuListCtrl'   
   })

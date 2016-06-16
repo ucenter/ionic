@@ -73,8 +73,11 @@ angular.module('starter.controllers', ['ngAnimate'])
 	// })
 
 })
-.controller('menuDetailCtrl', function($scope,$state,$stateParams,getData){
+.controller('menuDetailCtrl', function($scope,$state,$stateParams,getData,common){
 	$scope.detail = [];
+  $scope.back = function(){
+    common.back();    
+  }
 	getData.search().success(function(res){
 
 	})

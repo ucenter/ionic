@@ -66,7 +66,7 @@ angular.module('starter.services', ['ngResource'])
         return $http.post(url+'/goods/desc',goodsid)
       },
       search: function(arg){
-        return $http.post(url+'/search',arg)
+        return $http.post(url+'/search',{'json':arg})
       },
       searchKeywords:function(){
         return $http.post(url+'/searchKeywords')
@@ -283,4 +283,18 @@ angular.module('starter.services', ['ngResource'])
   }
 
   return order;
+})
+
+.service('cart',function(initUser){
+  var cart = {};
+  cart.add = function(){
+
+  }
+  cart.remove = function(){
+
+  }
+  cart.update = function(){
+
+  }
+
 })

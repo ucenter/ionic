@@ -8,7 +8,10 @@ angular.module('starter.controllers')
 
 	$scope.listid = $stateParams.id;
 	$scope.data = [];
-
+	$scope.page = 0;
+	$scope.pageTotal = '';
+	$scope.more = '';
+	
 	var data = {"json":JSON.stringify({
 		"filter":{
 			"keyword": "","category_id": $stateParams.id,"price_range":"","brand_id":"","sort_by":"id_desc"
@@ -17,10 +20,7 @@ angular.module('starter.controllers')
 	})};
 
 	$scope.loadMore = function() {
-		// $http.post('/more-items').success(function(items) {
-		//   useItems(items);
-		//   $scope.$broadcast('scroll.infiniteScrollComplete');
-		// });
+
 		getData.search(data).success(function(res){
 			console.log('商品查询列表',res)
 			$scope.data = res.data;
