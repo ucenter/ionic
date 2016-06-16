@@ -153,13 +153,13 @@ angular.module('starter.services', ['ngResource'])
       },
       order: {
         list: function(arg){
-          return $http.post(url+'/order/list',arg)
+          return $http.post(url+'/order/list',{'json': JSON.stringify(arg)})
         },
         affirmReceived: function(arg){
           return $http.post(url+'/order/affirmReceived',arg)
         },
         cancel: function(arg){
-          return $http.post(url+'/order/cancel',arg)
+          return $http.post(url+'/order/cancel',{'json': JSON.stringify(arg)})
         },
         pay: function(arg){
           return $http.post(url+'/order/pay',arg)
@@ -256,3 +256,31 @@ angular.module('starter.services', ['ngResource'])
     //返回用户状态服务
     return initUser;
 }])
+
+.service('order', function($rootScope,getData,initUser){
+  var order = {};
+  order.list = function(initUser){
+    return getData.order.list({
+      'session': {
+        'sid':initUser.session.sid,
+        'uid':initUser.session.uid
+      },
+      'pagination':{
+        'page':'1',
+        'count':'100',
+      },
+      'type':''
+    })
+  };
+  order.cancel = function(initUser,orderid){
+      return getData.order.cancel({
+        'session': {
+          'sid':initUser.session.sid,
+          'uid':initUser.session.uid
+        },
+        'order_id': orderid        
+      })
+  }
+
+  return order;
+})

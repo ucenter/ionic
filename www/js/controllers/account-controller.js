@@ -87,13 +87,25 @@ angular.module('starter.controllers')
 	
 })
 
-.controller('orderlistCtrl', function($scope,$state,getData,initUser){
+.controller('orderlistCtrl', function($scope,$state,initUser,order){
 	$scope.$on('$ionicView.beforeEnter',function(){
 		// 判断是否登陆
 		// if(!initUser.isLogin){
 		// 	$state.go('login')
 		// }
 	})
+	order.list(initUser).then(function(res){
+		console.log('list',res)
+		$scope.lists = res.data.data;
+	})
+	$scope.cancel = function(id){
+		order.cancel(initUser,id).then(function(res){
+			console.log('cancel',res)
+
+		})
+	}
+
+
 })
 
 .controller('addressCtrl', function($scope,getData){
