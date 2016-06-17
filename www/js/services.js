@@ -131,7 +131,7 @@ angular.module('starter.services', ['ngResource'])
       },
       cart: {
         create: function(arg){
-          return $http.post(url+'/cart/create',arg)
+          return $http.post(url+'/cart/create',{'json': JSON.stringify(arg)})
         },
         update: function(arg){
           return $http.post(url+'/cart/update',arg)
@@ -140,7 +140,7 @@ angular.module('starter.services', ['ngResource'])
           return $http.post(url+'/cart/delete',arg)
         },
         list: function(arg){
-          return $http.post(url+'/cart/list',arg)
+          return $http.post(url+'/cart/list',{'json': JSON.stringify(arg)})
         }
       },
       flow: {
@@ -200,12 +200,10 @@ angular.module('starter.services', ['ngResource'])
 
 .service('initUser', ['$rootScope','$http','getData', function($rootScope,$http,getData){
     var initUser = {};//初始用户全局变量
-        initUser.session = {
-          'sid':'',
-          'uid':''
-        }
+        initUser.session = {'sid':'','uid':''}
         initUser.info = {};
-        initUser.isLogin = false;
+        initUser.isLogin;
+      console.log(this)
     //读取本地存储
     if (getData.getLocal('sid') && getData.getLocal('sid').length == 40 && getData.getLocal('uid')) {
         initUser.session.sid = getData.getLocal('sid');
@@ -220,16 +218,13 @@ angular.module('starter.services', ['ngResource'])
         }).success(function(res){
           console.log(res)
           if (res.status.succeed == 1) {
-              initUser.info = res.data
+              initUser.info = res.data;
               initUser.isLogin = true;
-              //setInfo(res.data)            
           }else{
               console.log(res.status.error_desc)
               initUser.loginOut()
           }
-
         })
-
     }
 
     initUser.setInfo = function(info){
@@ -250,6 +245,63 @@ angular.module('starter.services', ['ngResource'])
         initUser.session.sid = s;
         getData.setLocal('uid',u)
         getData.setLocal('sid',s)
+    }
+
+    initUser.order = {
+        list: function(initUser){
+          return getData.order.list({
+            'session': {
+              'sid':initUser.session.sid,
+              'uid':initUser.session.uid
+            },
+            'pagination':{
+              'page':'1',
+              'count':'100',
+            },
+            'type':''
+          })
+        },
+        cancel: function(initUser,orderid){
+            return getData.order.cancel({
+              'session': {
+                'sid':initUser.session.sid,
+                'uid':initUser.session.uid
+              },
+              'order_id': orderid        
+            })
+        },
+        update: function(){
+            return 
+        }      
+    }
+
+    initUser.address = {
+        add:function(){
+          return getData.address.add()
+        },
+        list: function(){
+          return getData.address.list({
+            'json':JSON.stringify({              
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              }
+            })
+          })
+        },
+        update: function(){
+
+        },
+        info: function(){
+
+        },
+        del: function(){
+
+        },
+        setDefault: function(){
+
+        }
+
     }
 
 
@@ -285,10 +337,18 @@ angular.module('starter.services', ['ngResource'])
   return order;
 })
 
-.service('cart',function(initUser){
+.service('cart',function(getData){
   var cart = {};
-  cart.add = function(){
-
+  cart.add = function(user,id,number,spec){
+    return getData.cart.create({
+      'session':{
+        'uid':user.session.uid,
+        'sid':user.session.sid
+      },
+      'goods_id': id,
+      'number': number,
+      'spec':spec
+    })
   }
   cart.remove = function(){
 
@@ -296,5 +356,9 @@ angular.module('starter.services', ['ngResource'])
   cart.update = function(){
 
   }
+  cart.list = function(session){
+    return getData.cart.list(session)
+  }
 
+  return cart;
 })

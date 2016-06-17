@@ -87,19 +87,19 @@ angular.module('starter.controllers')
 	
 })
 
-.controller('orderlistCtrl', function($scope,$state,initUser,order){
+.controller('orderlistCtrl', function($scope,$state,initUser){
 	$scope.$on('$ionicView.beforeEnter',function(){
 		// 判断是否登陆
 		// if(!initUser.isLogin){
 		// 	$state.go('login')
 		// }
 	})
-	order.list(initUser).then(function(res){
+	initUser.order.list(initUser).then(function(res){
 		console.log('list',res)
 		$scope.lists = res.data.data;
 	})
 	$scope.cancel = function(id){
-		order.cancel(initUser,id).then(function(res){
+		initUser.order.cancel(id).then(function(res){
 			console.log('cancel',res)
 
 		})
@@ -108,7 +108,10 @@ angular.module('starter.controllers')
 
 })
 
-.controller('addressCtrl', function($scope,getData){
+.controller('addressCtrl', function($scope,initUser){
+	initUser.address.list().success(function(res){
+		console.log(res)
+	})
 
 })
 

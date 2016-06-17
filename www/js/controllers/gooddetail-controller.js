@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('goodDetailCtrl', function($scope,$ionicHistory,$state,$stateParams,getData,ionicToast){
+.controller('goodDetailCtrl', function($scope,$ionicHistory,$state,$stateParams,getData,cart,initUser,ionicToast){
 	//商品详情页
 	$scope.goodid = $stateParams.id;
 	var arg = {'json':JSON.stringify({'goods_id':$stateParams.id,'session':{'uid':'','sid':''}})};
@@ -16,7 +16,10 @@ angular.module('starter.controllers')
 		history.back();
 	}
 	$scope.addCart = function(){
-		ionicToast.show('已加入购物车', 'middle', false, 2500);    
+		cart.add(initUser,'224','2','').success(function(res){
+			console.log(res)
+			ionicToast.show('已加入购物车', 'middle', false, 2500);    
+		})
 	}
 
 })

@@ -178,14 +178,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.orderlist', {
+    .state('orderlist', {
       url: '/orderlist',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/account/tab-orderlist.html',
-          controller: 'orderlistCtrl'
-        }
-      }
+      templateUrl: 'templates/account/tab-orderlist.html',
+      controller: 'orderlistCtrl'
     })
     .state('tab.collect', {
       url: '/collect',
@@ -196,14 +192,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.address', {
+    .state('address', {
       url: '/address',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/account/tab-address.html',
-          controller: 'addressCtrl'
-        }
-      }
+      templateUrl: 'templates/account/tab-address.html',
+      controller: 'addressCtrl'
     })
   .state('tab.menuindex',{
       url:'/menuindex',

@@ -24,12 +24,39 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 	})
 
-.controller('cartCtrl', function($scope){
+.controller('cartCtrl', function($scope,initUser,getData,cart){
 	//购物车
+ 	$scope.shouldShowDelete = false;
+ 	$scope.shouldShowReorder = false;
+ 	$scope.listCanSwipe = true
+
+	$scope.items;
+	cart.list({
+		'session':{
+			'uid':initUser.session.uid,
+			'sid':initUser.session.sid
+		}
+	}).success(function(res){
+		console.log(res)
+		if (res.status.success) {
+			$scope.items = res.data.goods_list;			
+		}
+	})
 
 })
 
-.controller('menuIndexCtrl', function($scope,getData){
+.controller('menuIndexCtrl', function($scope,$ionicLoading,getData){
+	$scope.data;
+	$scope.$on('$ionicView.beforeEnter',function(){
+		$ionicLoading.show({
+			template: '加载中...'
+		}).then(function(){
+			console.log("The loading menuIndex is now displayed");
+		});
+	})
+	$scope.$on('$ionicView.enter',function(){
+		$ionicLoading.hide();
+	})	
 	getData.menuCate().success(function(res){
 		console.log(res)
 		$scope.data = res.result

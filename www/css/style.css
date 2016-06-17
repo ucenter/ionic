@@ -348,3 +348,18 @@ a{
 .userHead.nologin .header{
 	
 }
+
+
+.menu-index .cate legend{
+  text-align: center;width: 100%;line-height: 2em;position: relative;margin: 6px 0;border: none;
+}
+.menu-index .cate legend:before,
+.menu-index .cate legend:after{width: 4em;position: absolute;top:1em;border-bottom: 1px solid #ccc;  content: "";}
+.menu-index .cate legend:before{margin-left: -5em;}
+.menu-index .cate legend:after{margin-left: 1em;}
+.menu-index .cate ul.link{margin-bottom: 10px;overflow: hidden;}
+.menu-index .cate ul.link li{width: 33.33%;float: left;display: inline-block;text-align: center;}
+.menu-index .cate ul.link li a.btn{
+  border: 1px solid #ccc;border-radius: 10px;padding: 6px 12px;
+  font-weight: normal;font-size: 12px;background: inherit;
+}
