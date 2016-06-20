@@ -360,6 +360,14 @@ a{
 .menu-index .cate ul.link{margin-bottom: 10px;overflow: hidden;}
 .menu-index .cate ul.link li{width: 33.33%;float: left;display: inline-block;text-align: center;}
 .menu-index .cate ul.link li a.btn{
-  border: 1px solid #ccc;border-radius: 10px;padding: 6px 12px;
-  font-weight: normal;font-size: 12px;background: inherit;
+  border: 1px solid #ccc;border-radius: 10px;padding: 6px 10px;margin-bottom: 4px;
+  font-weight: normal;font-size: 12px;background: inherit;display: inline-block;
+}
+
+
+.cart-view .item-content span{
+  color: #fff;
+}
+.cart-view .item-checkbox{
+  background: inherit; 
 }

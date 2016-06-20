@@ -1,27 +1,32 @@
 <ion-view title='购物车'>
-	<ion-content>
+	<ion-content class='cart-view' >
 		<ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder"  can-swipe="listCanSwipe">
-			<ion-item ng-repeat="item in items" class="item-thumbnail-left">
-		    	<img ng-src="{{item.img.thumb}}">
-		    	<h2>{{item.goods_name}}</h2>
-		    	<p>
-		    		{{item.goods_price}},
-		    		{{item.goods_number}},{{item.subtotal}}
-		    	</p>
-		    	<ion-option-button class="button-positive" ng-click="share(item)">
-		      		Share
-		    	</ion-option-button>
-		    	<ion-option-button class="button-info" ng-click="edit(item)">
-		      		Edit
-		    	</ion-option-button>
-		    <ion-delete-button class="ion-minus-circled"
-		                       ng-click="items.splice($index, 1)">
-		    </ion-delete-button>
-		    <ion-reorder-button class="ion-navicon"
-		                        on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-		    </ion-reorder-button>
-
-		  </ion-item>
+			<ion-checkbox class='checkbox-assertive' ng-model="isChecked">
+				<ion-item ng-repeat="item in items" class="item-thumbnail-left">
+				    <img ng-src="{{item.img.thumb}}">
+					<div>
+				    	<h2>{{item.goods_name}}</h2>
+				    	<div>
+				    		<div class="shop_price" data-ng-bind-html='item.goods_price'>   			
+				    		</div>			    		
+				    		<div class="shop_price assertive" data-ng-bind-html='item.subtotal'></div>
+				    	</div>					
+					</div>
+					<p>{{item.goods_number}}</p>
+					
+			    	<ion-option-button class="button-positive" ng-click="share(item)">
+			      		Share
+			    	</ion-option-button>
+			    	<ion-option-button class="button-info" ng-click="edit(item)">
+			      		删除
+			    	</ion-option-button>
+			  	</ion-item>
+			</ion-checkbox>
 		</ion-list>
+		<div class='bar bar-footer bar-dark'>
+			<ion-checkbox class="checkbox-assertive" ng-model="allCheck">全选</ion-checkbox>
+			<span>合计：{{total}}</span>
+			<button class="button button-assertive pull-right">去结算<span>(1)</span></button>		
+		</div>
 	</ion-content>
 </ion-view>

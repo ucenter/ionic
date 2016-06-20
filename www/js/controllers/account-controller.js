@@ -169,3 +169,7 @@ angular.module('starter.controllers')
 		}
 	}
 })
+
+.controller('regCtrl', ['$scope','initUser', function($scope,initUser){
+	
+}])
