@@ -8,7 +8,8 @@ angular.module('starter.controllers')
  	$scope.isChecked = false;
  	$scope.allCheck = false;
 	$scope.items = [{}];
-	$scope.total = 0;
+	$scope.total = 1;
+	$scope.totalNum = 1;
 	cart.list({
 		'session':{
 			'uid':initUser.session.uid,
@@ -17,12 +18,10 @@ angular.module('starter.controllers')
 	}).success(function(res){
 		console.log(res)
 		if (res.status.succeed) {
-			$scope.items = res.data.goods_list;				
+			$scope.items = res.data;				
 		}else{
 			//console.log($scope.items[0].length == )
 		}
 	})
-
-
 
 })

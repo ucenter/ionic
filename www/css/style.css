@@ -367,8 +367,11 @@ a{
 
 
 .cart-view .item-content span{
-  color: #fff;
+  /*color: #fff;*/
 }
 .cart-view .item-checkbox{
   background: inherit; 
 }
+.cart-view label.item{border:none;}
+.cart-view .bar.bar-dark{background-image: none;}
+.cart-view .bar-footer .item-checkbox{color:#fff;}
