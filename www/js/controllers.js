@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngAnimate'])
 
-.controller('ChatsCtrl', function($scope,getData) {
+.controller('ChatsCtrl', function($scope,$ionicSideMenuDelegate,getData) {
 	// With the new view caching in Ionic, Controllers are only called
 	// when they are recreated or on app start, instead of every page change.
 	// To listen for when this page is active (for example, to refresh data),
@@ -9,6 +9,9 @@ angular.module('starter.controllers', ['ngAnimate'])
 	$scope.$on('$ionicView.enter', function(e) {
 
 	});
+	$scope.toggleRight = function() {
+		$ionicSideMenuDelegate.toggleRight();
+	};	
 	getData.category().success(function(res){
 		console.log('分类',res)
 		$scope.cates = res.data;

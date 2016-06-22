@@ -7,7 +7,7 @@ angular.module('starter.controllers')
  	$scope.listCanSwipe = true;
  	$scope.isChecked = false;
  	$scope.allCheck = false;
-	$scope.items = [];
+	$scope.items = [{}];
 	$scope.total = 0;
 	cart.list({
 		'session':{

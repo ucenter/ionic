@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.ionic802233" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ionic</name>
+<widget id="com.shizhencaiyuan.0622" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>食珍园</name>
   <description>
         An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  </description>
+  <author email="13011191283@163.com" href="http://www.shizhencaiyuan.com">
+      幽幽咖啡
     </author>
   <content src="index.html"/>
   <access origin="*"/>
