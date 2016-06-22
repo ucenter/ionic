@@ -19,7 +19,7 @@ angular.module('starter.controllers')
 		if (res.status.succeed) {
 			$scope.items = res.data.goods_list;				
 		}else{
-			console.log($scope.items[0].length)
+			//console.log($scope.items[0].length == )
 		}
 	})
 
