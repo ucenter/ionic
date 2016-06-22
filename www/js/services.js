@@ -202,8 +202,7 @@ angular.module('starter.services', ['ngResource'])
     var initUser = {};//初始用户全局变量
         initUser.session = {'sid':'','uid':''}
         initUser.info = {};
-        initUser.isLogin;
-      console.log(this)
+        initUser.isLogin;      
     //读取本地存储
     if (getData.getLocal('sid') && getData.getLocal('sid').length == 40 && getData.getLocal('uid')) {
         initUser.session.sid = getData.getLocal('sid');

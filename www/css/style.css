@@ -317,8 +317,9 @@ a{
 	font-size: 20px;
 }
 
-.slider-slide .box img{min-width:320px;width: 100%;height: auto;display: block;}
-.slider-slide .box{text-align: center;}
+.slider-slide .box img{width: 100%;height: auto;display: block;}
+.slider-slide .box{width: 100%;}
+
 .menuDetailModal{
   box-shadow: 3px 3px 5px rgba(0,0,0,.8);
   border: 2px solid #000; 

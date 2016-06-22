@@ -17,6 +17,7 @@
 		    </div>
 		  </ion-slide>
 		</ion-slide-box>
+		
 		<div class="grid padding">
 			<ul>
 				<li><h2 class="goodsName">{{::data.goods_name}}</h2></li>
@@ -33,7 +34,7 @@
 		</div>
 	</ion-content>
 	<ion-footer-bar align-title="right" class="bar-dark">
-		<button class="button icon-left ion-ios-information button-energized">去结算</button>
+		<a href="#/tab/cart" class="button icon-left ion-ios-information button-energized">去结算</a>
 	    <button ng-click='addCart()' class="button icon-left ion-ios-cart button-assertive">加入购物车</button>
 	</ion-footer-bar>	
 </ion-view>

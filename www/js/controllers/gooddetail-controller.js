@@ -1,11 +1,13 @@
 angular.module('starter.controllers')
-.controller('goodDetailCtrl', function($scope,$ionicHistory,$state,$stateParams,getData,cart,initUser,ionicToast){
+.controller('goodDetailCtrl', function($scope,$ionicSlideBoxDelegate,$ionicHistory,$state,$stateParams,getData,cart,initUser,ionicToast){
 	//商品详情页
 	$scope.goodid = $stateParams.id;
 	var arg = {'json':JSON.stringify({'goods_id':$stateParams.id,'session':{'uid':'','sid':''}})};
 	getData.good(arg).success(function(res){
 		console.log('商品信息',res)
 		$scope.data = res.data;
+		$ionicSlideBoxDelegate.update();//激活幻灯
+		
 		getData.goodDesc({"goods_id":res.data.id}).success(function(resD){
 			console.log('商品详情',resD)
 			$scope.detail = resD.data.replace(/src="/g,'src="http://test.shizhencaiyuan.com/')

@@ -4,7 +4,7 @@ angular.module('starter.controllers')
 	//购物车
  	$scope.shouldShowDelete = false;
  	$scope.shouldShowReorder = false;
- 	$scope.listCanSwipe = true;
+ 	$scope.listCanSwipe = false;
  	$scope.isChecked = false;
  	$scope.allCheck = false;
 	$scope.items = [{}];
@@ -17,8 +17,12 @@ angular.module('starter.controllers')
 	}).success(function(res){
 		console.log(res)
 		if (res.status.succeed) {
-			$scope.items = res.data.goods_list;	
+			$scope.items = res.data.goods_list;				
+		}else{
+			console.log($scope.items[0].length)
 		}
 	})
+
+
 
 })

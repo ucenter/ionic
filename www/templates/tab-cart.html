@@ -1,6 +1,6 @@
 <ion-view title='购物车'>
 	<ion-content class='cart-view' >
-		<ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder"  can-swipe="listCanSwipe">
+		<ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder"  can-swipe="listCanSwipe" ng-if='items.length > 1'>
 			<ion-checkbox class='checkbox-assertive' ng-model="isChecked">
 				<ion-item ng-repeat="item in items" class="item-thumbnail-left">
 				    <img ng-src="{{item.img.thumb}}">
@@ -23,10 +23,14 @@
 			  	</ion-item>
 			</ion-checkbox>
 		</ion-list>
-		<div class='bar bar-footer bar-dark'>
+		<div class='bar bar-footer bar-dark' ng-if='items.length > 1'>
 			<ion-checkbox class="checkbox-assertive" ng-model="allCheck">全选</ion-checkbox>
 			<span>合计：{{total}}</span>
 			<button class="button button-assertive pull-right">去结算<span>(1)</span></button>		
 		</div>
+
+		<p ng-if='!items[0]'>
+			购物车为空
+		</p>
 	</ion-content>
 </ion-view>
