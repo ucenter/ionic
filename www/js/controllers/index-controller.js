@@ -2,11 +2,11 @@ angular.module('starter.controllers')
 .controller('indexCtrl', function($scope,$ionicSlideBoxDelegate,getData,initUser) {
 	//首页
 
-	$scope.options = {
-		loop: false,
-		effect: 'fade',
-		speed: 500
-	}
+	// $scope.options = {
+	// 	loop: false,
+	// 	effect: 'fade',
+	// 	speed: 500
+	// }
 
 	console.log('首页',initUser)
 	// $scope.data = [];

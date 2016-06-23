@@ -1,23 +1,24 @@
 <ion-view title='商品详情' >
 	<ion-header-bar class="bar-positive">
 	  <div class="buttons">
-	    <a class="button icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
+	    <a class="button button-clear icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
 	  </div>
 	  <h1 class="title">商品列表</h1>
 	  <div class="buttons">
-	    <a href="#/tab/dash" class="button icon-left ion-ios-home"></a>
+	    <a href="#/tab/dash" class="button button-clear icon-left ion-ios-home"></a>
 	  </div>	  
 	</ion-header-bar>
 
 	<ion-content>
-	  <ion-slide-box  on-slide-changed="slideHasChanged($index)">
+ 	  	<ion-slide-box  on-slide-changed="slideHasChanged($index)">
 		  <ion-slide ng-repeat='item in data.pictures'>
 		    <div class="box">
-		    	<img ng-src="{{::item.small}}" />
+		    	<img image-lazy-src="{{::item.small}}" lazy-scroll-resize="true"/>
 		    </div>
 		  </ion-slide>
-		</ion-slide-box>
-		
+		</ion-slide-box> 
+
+
 		<div class="grid padding">
 			<ul>
 				<li><h2 class="goodsName">{{::data.goods_name}}</h2></li>

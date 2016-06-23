@@ -20,7 +20,15 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    {
+      "variables": {
+        "wechatappid": "wx0e34e63ab10fe5c6"
+      },
+      "locator": "cordova-plugin-wechat",
+      "id": "cordova-plugin-wechat"
+    },
+    "cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [
     "android"

@@ -6,6 +6,7 @@ angular.module('starter.controllers')
 	getData.good(arg).success(function(res){
 		console.log('商品信息',res)
 		$scope.data = res.data;
+		
 		$ionicSlideBoxDelegate.update();//激活幻灯
 		
 		getData.goodDesc({"goods_id":res.data.id}).success(function(resD){
