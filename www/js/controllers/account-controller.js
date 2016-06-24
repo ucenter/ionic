@@ -172,9 +172,10 @@ angular.module('starter.controllers')
 		Wechat.auth("snsapi_userinfo", function (response) {
 		// you may use response.code to get the access token.
 			//alert(JSON.stringify(response));
-			var code = JSON.stringify(response).code;
-			getWxToken(code).success(function(res){
-				alert(JSON.stringify(response))
+			var code = response.code;
+			alert(code);
+			getData.getWxToken(code).success(function(res){
+				alert(JSON.stringify(res))
 			})
 		}, function (reason) {
 			alert("Failed: " + reason);
