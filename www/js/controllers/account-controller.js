@@ -115,7 +115,7 @@ angular.module('starter.controllers')
 
 })
 
-.controller('loginCtrl', function($scope,$rootScope,$state,$ionicHistory,getData,initUser,ionicToast){
+.controller('loginCtrl', function($scope,$http,$rootScope,$state,$ionicHistory,getData,initUser,ionicToast){
 	console.log($ionicHistory)
 	$scope.data = {
 		'username': 'test',
@@ -124,9 +124,11 @@ angular.module('starter.controllers')
 	$scope.settings = {
 		savePassword: true
 	};
+
 	$scope.back = function(){
 		history.back();
 	}
+
 	$scope.login = function(){
 		if (!$scope.data.username && !$scope.data.password) {
 			ionicToast.show('用户名密码不难为空', 'middle', false, 2500);
@@ -160,13 +162,23 @@ angular.module('starter.controllers')
 							//$ionicHistory.goBack()
 							history.back();
 						})
-					},0)
-					
+					},0)					
 				}
-
 			})  
-
 		}
+	}
+
+	$scope.wechatLogin = function(){
+		Wechat.auth("snsapi_userinfo", function (response) {
+		// you may use response.code to get the access token.
+			//alert(JSON.stringify(response));
+			var code = JSON.stringify(response).code;
+			getWxToken(code).success(function(res){
+				alert(JSON.stringify(response))
+			})
+		}, function (reason) {
+			alert("Failed: " + reason);
+		});
 	}
 })
 

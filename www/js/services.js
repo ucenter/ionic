@@ -191,7 +191,11 @@ angular.module('starter.services', ['ngResource'])
       },
       menuSearch: function(){
         return $http.get('./server-demo/menu-search.json')
+      },
+      getWxToken: function(code){
+        return $http.get('https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx0e34e63ab10fe5c6&secret=cbcf18fc542410928238ffcdef0807ca&code='+code+'&grant_type=authorization_code')
       }
+
 
   }
   
