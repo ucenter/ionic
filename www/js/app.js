@@ -13,7 +13,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
   }
 })
 
-.run(function($ionicPlatform,$rootScope,$ionicHistory,$state) {
+.run(function($ionicPlatform,$rootScope,$ionicHistory,$state,$ionicLoading) {
 
 
     // var needLoginView = ["tab.cart"];//需要登录的页面state
@@ -23,6 +23,12 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     //         event.preventDefault(); //阻止默认事件，即原本页面的加载
     //     }
     // });
+
+  // $rootScope.$on('$stateChangeStart',function(){
+  //     $ionicLoading.show({
+  //       template: '加载中...'
+  //     })
+  // })
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

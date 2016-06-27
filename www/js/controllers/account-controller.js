@@ -87,24 +87,84 @@ angular.module('starter.controllers')
 	
 })
 
-.controller('orderlistCtrl', function($scope,$state,initUser){
+.controller('orderlistCtrl', function($scope,$state,$ionicLoading,$ionicPopover,$ionicPopup,$timeout,initUser){
+	// $scope.$on('$ionicView.beforeEnter',function(){
+	// 	判断是否登陆
+	// 	if(!initUser.isLogin){
+	// 		$state.go('login')
+	// 	}
+	// })
 	$scope.$on('$ionicView.beforeEnter',function(){
-		// 判断是否登陆
-		// if(!initUser.isLogin){
-		// 	$state.go('login')
-		// }
+		$ionicLoading.show({
+			template: '加载中...'
+		}).then(function(){
+			console.log("The loading indicator is now displayed",initUser);
+		});
 	})
+	// $scope.$on('$ionicView.enter',function(){
+	// 	$ionicLoading.hide();
+	// })
+
 	initUser.order.list(initUser).then(function(res){
 		console.log('list',res)
-		$scope.lists = res.data.data;
+		$ionicLoading.hide();
+		if (res.data.status.succeed == 1) {
+			$scope.lists = res.data.data;			
+		}else{
+			alert(res.data.status.error_desc)
+		}
+	},function(res){
+		alert('网络错误')
 	})
 	$scope.cancel = function(id){
 		initUser.order.cancel(id).then(function(res){
 			console.log('cancel',res)
-
+		})
+	}
+	$scope.pay = function(id){
+		initUser.order.pay(initUser, id).then(function(res){
+			console.log(res)
+			var link = res.data.data.pay_online;
+			$scope.showPopup(link)
+		},function(error){
+			alert(error)
 		})
 	}
 
+	$scope.showPopup = function(link) {
+	  	$scope.data = {};
+
+		// An elaborate, custom popup
+		var myPopup = $ionicPopup.show({
+		template: link,
+		title: 'Enter Wi-Fi Password',
+		subTitle: 'Please use normal things',
+		scope: $scope,
+		buttons: [
+		  { text: 'Cancel' },
+		  {
+		    text: '<b>Save</b>',
+		    type: 'button-positive',
+		    onTap: function(e) {
+		      if (!$scope.data.wifi) {
+		        //don't allow the user to close unless he enters wifi password
+		        e.preventDefault();
+		      } else {
+		        return $scope.data.wifi;
+		      }
+		    }
+		  }
+		]
+		});
+
+		myPopup.then(function(res) {
+			console.log('Tapped!', res);
+		});
+
+		$timeout(function() {
+			myPopup.close(); //close the popup after 3 seconds for some reason
+		}, 10000);
+	};
 
 })
 
@@ -115,73 +175,6 @@ angular.module('starter.controllers')
 
 })
 
-.controller('loginCtrl', function($scope,$http,$rootScope,$state,$ionicHistory,getData,initUser,ionicToast){
-	console.log($ionicHistory)
-	$scope.data = {
-		'username': 'test',
-		'password': 'test888'
-	};
-	$scope.settings = {
-		savePassword: true
-	};
-
-	$scope.back = function(){
-		history.back();
-	}
-
-	$scope.login = function(){
-		if (!$scope.data.username && !$scope.data.password) {
-			ionicToast.show('用户名密码不难为空', 'middle', false, 2500);
-			return false;    
-		}else{
-			getData.user.signin(
-				{'name':$scope.data.username,'password':$scope.data.password}
-			).success(function(res){
-				//登陆成功
-				console.log(res)
-				if (res.status.succeed === 0) {
-					ionicToast.show(res.status.error_desc, 'middle', false, 2500);
-				}else{
-					ionicToast.show('登录成功', 'middle', false, 2500);
-					initUser.setSession(res.data.session.sid,res.data.session.uid);
-
-					setTimeout(function(){
-						var se = initUser.session;
-						console.log(se);
-						getData.user.info({
-							"session":{
-								"sid":se.sid,
-								"uid":se.uid
-							}
-						})
-						.success(function(res){
-							console.log(res)
-							initUser.setInfo(res.data)
-							//$state.go('fromParams',{}, {reload: true}); 
-							//$rootScope.$ionicGoBack();
-							//$ionicHistory.goBack()
-							history.back();
-						})
-					},0)					
-				}
-			})  
-		}
-	}
-
-	$scope.wechatLogin = function(){
-		Wechat.auth("snsapi_userinfo", function (response) {
-		// you may use response.code to get the access token.
-			//alert(JSON.stringify(response));
-			var code = response.code;
-			alert(code);
-			getData.getWxToken(code).success(function(res){
-				alert(JSON.stringify(res))
-			})
-		}, function (reason) {
-			alert("Failed: " + reason);
-		});
-	}
-})
 
 .controller('regCtrl', ['$scope','initUser', function($scope,initUser){
 	

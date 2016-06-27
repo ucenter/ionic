@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('indexCtrl', function($scope,$ionicSlideBoxDelegate,getData,initUser) {
+.controller('indexCtrl', function($scope,$ionicSlideBoxDelegate,$rootScope,$ionicLoading,getData,initUser) {
 	//首页
 
 	// $scope.options = {
@@ -7,6 +7,16 @@ angular.module('starter.controllers')
 	// 	effect: 'fade',
 	// 	speed: 500
 	// }
+	$scope.$on('$ionicView.beforeEnter',function(){
+		$ionicLoading.show({
+			template: '加载中...'
+		}).then(function(){
+			console.log("The loading indicator is now displayed",initUser);
+		});
+	})	
+	$scope.$on('$ionicView.enter',function(){
+		$ionicLoading.hide();
+	})
 
 	console.log('首页',initUser)
 	// $scope.data = [];

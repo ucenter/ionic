@@ -16,9 +16,10 @@
 
 			<ion-content>
 				<div class="button-bar">
-					<a class="button">First</a>
-					<a class="button">Second</a>
-					<a class="button">Third</a>
+					<a class="button">默认</a>
+					<a class='button'>人气</a>
+					<a class="button">销量</a>
+					<a class="button">价格</a>
 				</div>
 				<div class="list"  ng-repeat='item in cates'>
 					<a class="item item-avatar" href="#/goodlist/{{child.id}}"  ng-repeat='child in item.children track by $index'>

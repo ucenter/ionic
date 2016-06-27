@@ -162,7 +162,7 @@ angular.module('starter.services', ['ngResource'])
           return $http.post(url+'/order/cancel',{'json': JSON.stringify(arg)})
         },
         pay: function(arg){
-          return $http.post(url+'/order/pay',arg)
+          return $http.post(url+'/order/pay',{'json': JSON.stringify(arg)})
         }
       },
       brand: function(category_id){
@@ -275,6 +275,15 @@ angular.module('starter.services', ['ngResource'])
         },
         update: function(){
             return 
+        },
+        pay: function(initUser,orderid){
+            return getData.order.pay({
+              'session': {
+                'sid':initUser.session.sid,
+                'uid':initUser.session.uid
+              },
+              'order_id': orderid        
+            })
         }      
     }
 
