@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'starter.services', 'ionic-toast','ionic-datepicker'])
+angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'starter.services', 'ionic-toast','ionic-datepicker','ngCordova'])
 
 .value('common',{
   back:function(){
@@ -24,11 +24,16 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     //     }
     // });
 
-  // $rootScope.$on('$stateChangeStart',function(){
-  //     $ionicLoading.show({
-  //       template: '加载中...'
-  //     })
-  // })
+  $rootScope.$on('$stateChangeStart',function(){
+      $ionicLoading.show({
+        template: '加载中...'
+      })
+  })
+  $rootScope.$on('$stateChangeSuccess',function(){
+    $ionicLoading.hide();
+  })
+
+
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -47,7 +52,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider,$cordovaInAppBrowserProvider) {
 
 
       //修正 $http post请求

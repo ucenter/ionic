@@ -375,3 +375,10 @@ a{
 .cart-view label.item{border:none;}
 .cart-view .bar.bar-dark{background-image: none;}
 .cart-view .bar-footer .item-checkbox{color:#fff;}
+
+
+.address_list .detailAdd{
+  line-height: 1.5em;
+}
+.address_list .detailAdd .button-inline{min-height: auto;min-width: auto;padding: 0 4px;font-size: inherit;line-height: inherit; }
+.address_list .bar-footer .button{margin-top: 6px;font-size: 14px}

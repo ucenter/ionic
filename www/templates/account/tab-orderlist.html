@@ -1,7 +1,7 @@
 <ion-view title='我的订单'>
 	<ion-header-bar class="bar-stable">
 		<div class="buttons">
-			<a href='#/tab/account' class="button icon-left ion-ios-arrow-back"></a>
+			<a href='#/tab/account' class="button button-clear icon-left ion-ios-arrow-back"></a>
 		</div>	
 		<h1 class="title">我的订单</h1>
 	</ion-header-bar>
@@ -26,7 +26,7 @@
 			<div class="item item-divider">
 				<button class='assertive' ng-if='item.pay_status == 0' ng-click='pay(item.order_id)'>付款</button>
 				<button class="assertive" ng-if='item.shipping_status != 0'>查看物流</button>
-				<button class='assertive' ng-click='showPopup()'>popover</button>
+				<button class='assertive' ng-click='openBrowser()'>openBrowser</button>
 				<button class="fr assertive" ng-click='cancel(item.order_id)'>取消</button>
 			</div>			
 		</div>

@@ -1,9 +1,48 @@
-<ion-view title='我的地址'>
+<ion-view title='我的地址' class='address_list'>
 	<ion-header-bar class="bar-stable">
-		<a href='#/tab/account' class="button icon-left ion-ios-arrow-back"></a>	
+		<a href='#/tab/account' class="button button-clear icon-left ion-ios-arrow-back"></a>	
 		<h1 class="title">地址管理</h1>
 	</ion-header-bar>
-	<ion-content class='padding'>
-		addresslist
+	<ion-content>
+<!-- 		<div class="card" ng-repeat='item in list track by $index'>
+			<div class="item item-text-wrap">
+				<p>{{item.name}} {{item.tel}}</p>
+				<span ng-if='item.default_address'>默认</span>
+				<span>{{item.province_name}}{{item.city_name}}{{item.district_name}}{{item.address}}</span>
+			</div>
+		</div> -->
+		<ion-list>
+			<ion-item ng-repeat='item in list' 
+				show-delete="shouldShowDelete" 
+				can-swipe="listCanSwipe">
+				
+				<h2>{{item.name}} {{item.tel}}</h2>
+				<p class='detailAdd'><span class='button button-inline button-assertive' ng-if='item.default_address'>默认</span>
+					{{item.province_name}}{{item.city_name}}{{item.district_name}}{{item.address}}</p>
+				<ion-option-button class='button-positive'>
+					默认
+				</ion-option-button>
+				<ion-option-button class='button-info'>
+					编辑
+				</ion-option-button>	
+    			<ion-delete-button class="ion-minus-circled"
+                		ng-click="items.splice($index, 1)">
+    			</ion-delete-button>							
+			</ion-item>
+		</ion-list>
 	</ion-content>
+<!-- 	<div class="bar bar-footer">
+	</div>	 -->
+<ion-footer-bar align-title="center" class="bar-stable">
+	<!-- <button class="button button-block icon-left ion-plus button-assertive">Favorites</button> -->
+    <h1 class='title'>
+    <button class="button button-block button-assertive">
+    	<i class="ion-ios-plus-empty"></i>
+    	<span>
+    		新建地址
+    	</span>
+    </button>    	
+    </h1>
+</ion-footer-bar>
+
 </ion-view>

@@ -16,11 +16,11 @@
     </div>
   </ion-header-bar>
 
-  <ion-content>
+  <ion-content lazy-scroll>
     <ion-slide-box on-slide-changed="slideHasChanged($index)">
       <ion-slide ng-repeat='slide in data.player'>
         <div class="box">
-            <img image-lazy-src='{{slide.photo.thumb}}' lazy-scroll-resize="true"/>   
+            <img image-lazy-src='{{slide.photo.thumb}}' image-lazy-distance-from-bottom-to-load="100"/>   
         </div>
       </ion-slide>
     </ion-slide-box>
@@ -28,7 +28,7 @@
     <hr />
     <ion-list ng-repeat='item in list'>
       <ion-item href='#/good/{{good.id}}' class="item-thumbnail-left" ng-repeat='good in item.goods track by $index'>
-          <img image-lazy-src="{{good.img.small}}" />
+          <img image-lazy-src="{{good.img.small}}" lazy-scroll-resize="true"/>
           <h2>{{good.name}}</h2>
           <p>{{good.id}}【{{item.name}}】</p>
           <p>价格：<em data-ng-bind-html='good.shop_price' class="shop_price"></em></p>
