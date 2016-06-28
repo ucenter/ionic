@@ -27,19 +27,18 @@ angular.module('starter.controllers')
 	getData.homeData().success(function(res){
 		console.log('首页数据',res)
 		
-		if (res.status.succeed) {
-		
-			getData.homeCategory().success(function(res2){
-				console.log('首页分类',res2)
-				if (res.status.succeed) {
-					$scope.data = res.data;
-					$scope.list = res2.data;
-					$ionicSlideBoxDelegate.update()
-					$ionicLoading.hide();
-				}
-			})    
-		}
+		getData.homeCategory().success(function(res2){
+			console.log('首页分类',res2)
+			$scope.data = res.data;
+			$scope.list = res2.data;
+			$ionicSlideBoxDelegate.update()
+			$ionicLoading.hide();
+
+		})    
+
 	});
+	$ionicSlideBoxDelegate.update()
+
 	$scope.focus = function(e){
 		console.log('focus',e)
 	}

@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('AccountCtrl', function($scope,$ionicLoading,getData,ionicToast,initUser) {
+.controller('AccountCtrl', function($scope,$rootScope,$ionicLoading,getData,ionicToast,initUser) {
 	//个人中心页
 	$scope.$on('$ionicView.beforeEnter',function(){
 		$ionicLoading.show({
@@ -38,9 +38,9 @@ angular.module('starter.controllers')
 		enableFriends: true
 	};
 
-	getData.address.list().success(function(res){
-		//console.log(res)
-	});
+	// getData.address.list().success(function(res){
+	// 	//console.log(res)
+	// });
 	$scope.showToast = function(){
 		ionicToast.show('init', 'middle', false, 2500);    
 	}
@@ -84,10 +84,18 @@ angular.module('starter.controllers')
 	        datePickerCallback(val);
 	    }
 	};	
+
+
+	$scope.openBrowser = function(){
+		ionicToast.show('openBrowser click', 'middle', false, 2500);   
+		var ref = cordova.InAppBrowser.open('http://m.baidu.com', '_blank', 'location=yes');
+		ref.show();
+	}
+
 	
 })
 
-.controller('orderlistCtrl', function($scope,$rootScope,$state,$ionicLoading,$ionicPopup,$timeout,$cordovaInAppBrowser,initUser){
+.controller('orderlistCtrl', function($scope,$rootScope,$state,$ionicLoading,$ionicPopup,$timeout,$cordovaInAppBrowser,ionicToast,initUser){
 	// $scope.$on('$ionicView.beforeEnter',function(){
 	// 	判断是否登陆
 	// 	if(!initUser.isLogin){
@@ -105,11 +113,11 @@ angular.module('starter.controllers')
 	// 	$ionicLoading.hide();
 	// })
 
-	initUser.order.list(initUser).success(function(res){
-		console.log('list',res)
-		$ionicLoading.hide();
-		if (res.status.succeed) {
-			$scope.lists = res.data;			
+	initUser.order.list(initUser).then(function(res){
+		ionicToast.show('订单请求成功', 'middle', false, 2500); 
+		console.log('list',res)		
+		if (res.data.status.succeed) {
+			$scope.lists = res.data.data;			
 		}else{
 			alert(res.data.status.error_desc)
 		}
