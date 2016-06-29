@@ -1,0 +1,21 @@
+<ion-view view-title="消息" name='message'>
+	<ion-header-bar class="bar-stable">
+		<div class="buttons">
+			<a class="button button-clear" href='#/tab/account'><i class="icon  ion-ios-arrow-left"></i></a>
+		</div>
+		<h1 class="title">消息中心</h1>
+		<div class="buttons">
+			<a class="button button-clear" href='#/tab/dash'><i class="icon ion-ios-home"></i></a>
+		</div>
+	</ion-header-bar>
+  <ion-content class="message">
+		<div class="card" ng-repeat='item in items'>
+		  <div class="item item-divider">
+		    {{item.title}}
+		  </div>
+		  <div class="item item-text-wrap">
+		    {{item.content}}
+		  </div>
+		</div>
+  </ion-content>
+</ion-view>

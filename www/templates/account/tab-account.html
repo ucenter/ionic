@@ -5,7 +5,7 @@
 		</div>
 		<h1 class="title">个人中心</h1>
 		<div class="buttons">
-			<a class="button button-clear" href='#/tab/dash'><i class="icon ion-ios-chatbubble"></i></a>
+			<a class="button button-clear" href='#/message'><i class="icon ion-ios-chatbubble"></i></a>
 		</div>
 	</ion-header-bar>
 
@@ -53,7 +53,9 @@
 		    <li class="item" ng-click='showToast()'>ionic-toast</li>		    
 		    <a class="item assertive hide" ng-click='loginOut()' ng-class='{show: initUser.session.sid}'>退出登录</a>
 		    <a href="#/demo" class='item'>demopage</a>
+
 		    <li class='item' ng-click='openBrowser()'>openbrowser</li>
+
 		    <ion-toggle  ng-model="settings.enableFriends">
 		        Enable Friend
 		    </ion-toggle>

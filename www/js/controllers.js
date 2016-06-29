@@ -27,14 +27,14 @@ angular.module('starter.controllers', ['ngAnimate'])
 })
 
 .controller('menuIndexCtrl', function($scope,$ionicLoading,getData){
-	$scope.data;
-	$scope.$on('$ionicView.beforeEnter',function(){
-		$ionicLoading.show({
-			template: '加载中...'
-		}).then(function(){
-			console.log("The loading menuIndex is now displayed");
-		});
-	})
+	//$scope.data;
+	// $scope.$on('$ionicView.beforeEnter',function(){
+	// 	$ionicLoading.show({
+	// 		template: '加载中...'
+	// 	}).then(function(){
+	// 		console.log("The loading menuIndex is now displayed");
+	// 	});
+	// })
 	$scope.$on('$ionicView.enter',function(){
 		$ionicLoading.hide();
 	})	
@@ -90,3 +90,10 @@ angular.module('starter.controllers', ['ngAnimate'])
 
 	})
 })
+
+.controller('messageCtrl', ['$scope', function($scope){
+	$scope.items = [
+		{title:'消息标题',content:'消息内容'},
+		{title:'消息标题2',content:'消息内容2'}
+	]
+}])

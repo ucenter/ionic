@@ -13,7 +13,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
   }
 })
 
-.run(function($ionicPlatform,$rootScope,$ionicHistory,$state,$ionicLoading) {
+.run(function($ionicPlatform,$rootScope,$ionicHistory,$state,$ionicLoading,$cordovaToast,ionicToast) {
 
 
     // var needLoginView = ["tab.cart"];//需要登录的页面state
@@ -28,11 +28,100 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
       $ionicLoading.show({
         template: '加载中...'
       })
-  })
+  });
   $rootScope.$on('$stateChangeSuccess',function(){
     $ionicLoading.hide();
-  })
+  }); 
 
+        var initiateUI = function() {
+            try {
+                window.plugins.jPushPlugin.init();
+                getRegistrationID();
+                if (device.platform != "Android") {
+                    window.plugins.jPushPlugin.setDebugModeFromIos();
+                    window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                } else {
+                    $cordovaToast.show('initiateUI', 'long', 'bottom')
+                    window.plugins.jPushPlugin.setDebugMode(true);
+                    window.plugins.jPushPlugin.setStatisticsOpen(true);
+                }
+            } catch (exception) {
+                console.log(exception);
+            }
+        };
+        var getRegistrationID = function() {
+          window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+        };
+        var onTagsWithAlias = function(event) {
+            try {
+                console.log("onTagsWithAlias");
+                var result = "result code:" + event.resultCode + " ";
+                result += "tags:" + event.tags + " ";
+                result += "alias:" + event.alias + " ";
+                //$("#tagAliasResult").html(result);
+                $cordovaToast.show(result, 'long', 'bottom')
+            } catch (exception) {
+                console.log(exception)
+            }
+        };        
+        var onGetRegistrationID = function(data) {            
+            try {
+                console.log("JPushPlugin:registrationID is " + data);
+
+                if (data.length == 0) {
+                    var t1 = window.setTimeout(getRegistrationID, 1000);
+                }
+                //$("#registrationId").html(data);
+                $cordovaToast.show(data, 'long', 'bottom')
+            } catch (exception) {
+                console.log(exception);
+            }
+        };  
+        var onOpenNotification = function(event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = window.plugins.jPushPlugin.openNotification.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+                //alert("open Notification:" + alertContent);
+                $state.go("message");
+                $cordovaToast.show('onOpenNotification', 'long', 'center')
+            } catch (exception) {
+                console.log("JPushPlugin:onOpenNotification" + exception);
+            }
+        };  
+        var onReceiveNotification = function(event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = window.plugins.jPushPlugin.receiveNotification.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+                //$("#notificationResult").html(alertContent);
+                alert(alertContent)
+                $cordovaToast.show('onReceiveNotification', 'long', 'bottom')
+            } catch (exception) {
+                console.log(exception)
+            }
+        };
+        var onReceiveMessage = function(event) {
+            try {
+                var message;
+                if (device.platform == "Android") {
+                    message = window.plugins.jPushPlugin.receiveMessage.message;
+                } else {
+                    message = event.content;
+                }
+                //$("#messageResult").html(message);
+                alert(message)
+                $cordovaToast.show('onReceiveMessage', 'long', 'bottom')
+            } catch (exception) {
+                console.log("JPushPlugin:onReceiveMessage-->" + exception);
+            }
+        };   
 
 
   $ionicPlatform.ready(function() {
@@ -41,6 +130,20 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
+
+      (function(document){
+        //极光推送
+        document.addEventListener("deviceready", function(){    
+          $cordovaToast.show('deviceready 加载', 'long', 'bottom')
+          initiateUI();
+        }, false);
+        document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
+        document.addEventListener("jpush.openNotification", onOpenNotification, false);
+        document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
+        document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);     
+
+        
+      })(document);
 
     }
     if (window.StatusBar) {
@@ -54,6 +157,12 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider,$cordovaInAppBrowserProvider) {
 
+    // document.addEventListener(function () {
+    //   $cordovaInAppBrowserProvider.setDefaultOptions({
+    //     location: 'no',
+    //     clearcache: 'no'
+    //   })
+    // }, false);
 
       //修正 $http post请求
       $httpProvider.defaults.transformRequest = function(obj){
@@ -83,7 +192,6 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
                   }
               }
               else if ($ionicHistory.backView()) {
-                  console.log('backView')
                   $ionicHistory.goBack();
               } else {
                   $rootScope.backButtonPressedOnceToExit = true;
@@ -212,6 +320,11 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
       url: '/address',
       templateUrl: 'templates/account/tab-address.html',
       controller: 'addressCtrl'
+    })
+    .state('message',{
+      url:'/message',
+      templateUrl: 'templates/message.html',
+      controller: 'messageCtrl'
     })
   .state('tab.menuindex',{
       url:'/menuindex',

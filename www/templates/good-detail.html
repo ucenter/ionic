@@ -13,11 +13,10 @@
  	  	<ion-slide-box  on-slide-changed="slideHasChanged($index)">
 		  <ion-slide ng-repeat='item in data.pictures'>
 		    <div class="box">
-		    	<img image-lazy-src="{{::item.small}}" lazy-scroll-resize="true"/>
+		    	<img ng-src="{{::item.small}}" lazy-scroll-resize="true"/>
 		    </div>
 		  </ion-slide>
 		</ion-slide-box> 
-
 
 		<div class="grid padding">
 			<ul>

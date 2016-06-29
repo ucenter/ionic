@@ -15,15 +15,11 @@ angular.module('starter.controllers')
 	// 	});
 	// })	
 	$scope.$on('$ionicView.enter',function(){
-		//$ionicLoading.hide();
+		$ionicLoading.hide();
 	})
 
 	console.log('首页',initUser)
-	// $scope.data = [];
-	// $scope.list = [];
-	$ionicLoading.show({
-		template: '加载中...'
-	})	
+
 	getData.homeData().success(function(res){
 		console.log('首页数据',res)
 		
@@ -32,8 +28,6 @@ angular.module('starter.controllers')
 			$scope.data = res.data;
 			$scope.list = res2.data;
 			$ionicSlideBoxDelegate.update()
-			$ionicLoading.hide();
-
 		})    
 
 	});
