@@ -15,7 +15,10 @@ angular.module('starter.controllers')
 	})
 	$scope.goBack = function(){
 		//$ionicHistory.goBack();
-		history.back();
+		//history.back();
+		//$ionicHistory.viewHistory();
+		console.log($state)
+		$state.reload()
 	}
 	$scope.addCart = function(){
 		cart.add(initUser,'224','2','').success(function(res){
@@ -23,5 +26,8 @@ angular.module('starter.controllers')
 			ionicToast.show('已加入购物车', 'middle', false, 2500);    
 		})
 	}
+	$scope.$on('backbutton',function(){
+
+	})
 
 })

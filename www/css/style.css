@@ -299,9 +299,9 @@ a{
 .AbsoluteCenter{
   position: absolute;top: 0;left: 0;right: 0;bottom:0;margin: auto;height: 50%;text-align: center;
 }
-.modal-backdrop{
+/*.modal-backdrop{
   width: 96%;height: 96%;top: 2%;left: 2%;
-}
+}*/
 
 .text-center{
 	text-align: center;

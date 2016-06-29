@@ -13,6 +13,10 @@ angular.module('starter.controllers')
 		$ionicLoading.hide();
 	})
 
+	$scope.$on('backbutton',function(){
+		$state.go('tab/dash');
+	})
+
 	$scope.initUser = initUser;
 	if(initUser.session.sid){
 		console.log('会员已经登陆',initUser)
@@ -103,7 +107,7 @@ angular.module('starter.controllers')
 })
 
 
-.controller('addressCtrl', function($scope,$ionicListDelegate,initUser){
+.controller('addressCtrl', function($scope,$rootScope,$state,$ionicModal,$ionicListDelegate,$ionicHistory,$cordovaToast,ionicToast,initUser){
 	$scope.shouldShowDelete = true;
 	//$scope.shouldShowReorder = false;
 	$scope.listCanSwipe = true;
@@ -113,8 +117,35 @@ angular.module('starter.controllers')
 		console.log('地址列表',res)
 		if (res.status.succeed) {
 			$scope.list = res.data;
+		}else{
+			ionicToast.show(res.status.error_desc, 'middle', false, 2500)
+			$state.go('login')
+			//$cordovaToast.show(res.status.error_desc, 'short', 'center')
 		}
 	})
+
+	$scope.$on('backbutton',function(){
+		$state.go('account');
+	})
+
+	$scope.address = function(){
+		$ionicModal.fromTemplateUrl('templates/account/address-modal.html',{            
+			scope: $scope,
+			animation:'slide-in-up'
+		}).then(function(modal){
+			$scope.modal = modal;
+			$scope.modal.show();
+		})		
+	}
+
+	$scope.closeModal = function() {
+		$scope.modal.hide().then(function(){
+			$scope.modal.remove();			
+		})
+	};	
+	$scope.$on('$destroy', function() {
+		$scope.modal.remove();
+	});	
 
 })
 
