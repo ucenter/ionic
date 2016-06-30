@@ -29,7 +29,8 @@ angular.module('starter.controllers')
 		}
 	},function(res){
 		$ionicLoading.hide();
-		alert('网络错误')
+		//alert('网络错误')
+		ionicToast.show('网络错误', 'middle', false, 2500); 
 	})
 	$scope.cancel = function(id){
 		initUser.order.cancel(id).then(function(res){

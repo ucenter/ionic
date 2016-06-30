@@ -28,7 +28,8 @@
       "locator": "cordova-plugin-wechat",
       "id": "cordova-plugin-wechat"
     },
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-geolocation-baidu"
   ],
   "cordovaPlatforms": [
     "android"

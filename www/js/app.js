@@ -24,14 +24,14 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     //     }
     // });
 
-  $rootScope.$on('$stateChangeStart',function(){
-      $ionicLoading.show({
-        template: '加载中...'
-      })
-  });
-  $rootScope.$on('$stateChangeSuccess',function(){
-    $ionicLoading.hide();
-  }); 
+      $rootScope.$on('$stateChangeStart',function(){
+          $ionicLoading.show({
+            template: '加载中...'
+          })
+      });
+      $rootScope.$on('$stateChangeSuccess',function(){
+        $ionicLoading.hide();
+      }); 
 
         var initiateUI = function() {
             try {
@@ -42,8 +42,8 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
                     window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                 } else {
                     $cordovaToast.show('initiateUI', 'long', 'bottom')
-                    window.plugins.jPushPlugin.setDebugMode(true);
-                    window.plugins.jPushPlugin.setStatisticsOpen(true);
+                    window.plugins.jPushPlugin.setDebugMode(false);
+                    window.plugins.jPushPlugin.setStatisticsOpen(false);
                 }
             } catch (exception) {
                 console.log(exception);
@@ -124,6 +124,8 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
         };   
 
 
+
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -132,6 +134,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
       cordova.plugins.Keyboard.disableScroll(true);
 
       (function(document){
+
         //极光推送
         document.addEventListener("deviceready", function(){    
           $cordovaToast.show('deviceready 加载', 'long', 'bottom')
@@ -142,6 +145,33 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
         document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
         document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);     
 
+
+        //通过百度sdk来获取经纬度,并且alert出经纬度信息
+        // var noop = function(){}
+        // window.locationService.getCurrentPosition(function(pos){
+        //     alert('百度定位'+JSON.stringify(pos))
+        //     //$cordovaToast.show('百度定位'+JSON.stringify(pos), 'long', 'center')
+        //     window.locationService.stop(noop,noop)
+        // },function(e){
+        //     alert('百度定位错误:'+JSON.stringify(e))
+        //     //$cordovaToast.show('百度定位'+JSON.stringify(pos), 'long', 'center')
+        //     window.locationService.stop(noop,noop)
+        // });
+
+        //cordova 定位
+        // navigator.geolocation.getCurrentPosition(function(position){
+        //     alert('Latitude: '          + position.coords.latitude          + '\n' +
+        //           'Longitude: '         + position.coords.longitude         + '\n' +
+        //           'Altitude: '          + position.coords.altitude          + '\n' +
+        //           'Accuracy: '          + position.coords.accuracy          + '\n' +
+        //           'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+        //           'Heading: '           + position.coords.heading           + '\n' +
+        //           'Speed: '             + position.coords.speed             + '\n' +
+        //           'Timestamp: '         + position.timestamp                + '\n');
+        // }, function(error){
+        //     //alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');   
+        //     $cordovaToast.show('code: '+error.code+'\n'+'message:'+error.message+'\n','long','center')                         
+        // });        
         
       })(document);
 

@@ -64,11 +64,12 @@ angular.module('starter.controllers')
 			var code = response.code;
 			alert(code);
 			//依据code获取access_token
+			$ionicLoading.hide();
 			getData.getWxToken(code).success(function(res){
-				$ionicLoading.hide();
 				alert(JSON.stringify(res))
 			})
 		}, function (reason) {
+			$ionicLoading.hide();
 			alert("Failed: " + reason);
 		});
 	}

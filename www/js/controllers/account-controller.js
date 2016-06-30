@@ -119,8 +119,8 @@ angular.module('starter.controllers')
 			$scope.list = res.data;
 		}else{
 			ionicToast.show(res.status.error_desc, 'middle', false, 2500)
-			$state.go('login')
 			//$cordovaToast.show(res.status.error_desc, 'short', 'center')
+			//$state.go('login')
 		}
 	})
 
@@ -144,7 +144,7 @@ angular.module('starter.controllers')
 		})
 	};	
 	$scope.$on('$destroy', function() {
-		$scope.modal.remove();
+		//$scope.modal.remove();
 	});	
 
 })

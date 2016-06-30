@@ -1,6 +1,12 @@
 angular.module('starter.controllers')
 .controller('goodDetailCtrl', function($scope,$ionicSlideBoxDelegate,$ionicHistory,$state,$stateParams,getData,cart,initUser,ionicToast){
 	//商品详情页
+
+	$scope.$on('$ionicView.enter',function(){
+		$ionicLoading.hide();
+		$ionicSlideBoxDelegate.update()
+	})
+
 	$scope.goodid = $stateParams.id;
 	var arg = {'json':JSON.stringify({'goods_id':$stateParams.id,'session':{'uid':'','sid':''}})};
 	getData.good(arg).success(function(res){

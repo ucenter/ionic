@@ -347,3 +347,35 @@ angular.module('starter.services', ['ngResource'])
 
   return cart;
 })
+
+
+// .service('index', function($http,$q){
+//   var url = 'http://test.shizhencaiyuan.com/PHP/?url='
+//   return {
+//       homeData: function(){
+//         var deferred = $q.defer();
+//         $http.post(url+'/home/data')
+//         .success(function(data,status,headers,config){
+//           deferred.resolve(data);
+//         })
+//         .error(function(data,status,headers,config) {
+//           /* Act on the event */
+//           deferred.reject(data)
+//         });
+//         return deferred.promise
+//       },
+//       homeCategory:function(){
+//         var deferred = $q.defer();
+//         $http.post(url+'/home/category')
+//         .success(function(data,status,headers,config){
+//           deferred.resolve(data);
+//         })
+//         .error(function(data,status,headers,config) {
+//           /* Act on the event */
+//           deferred.reject(data)
+//         });
+//         return deferred.promise        
+//       },
+
+//   }
+// })
