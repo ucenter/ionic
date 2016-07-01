@@ -50,7 +50,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 
-.factory('getData', function($http){
+.factory('getData', function($http,$q){
   var url = 'http://test.shizhencaiyuan.com/PHP/?url=';
   return {
       config:function(){
@@ -84,7 +84,14 @@ angular.module('starter.services', ['ngResource'])
         return $http.post(url+'/article',id)
       },
       region: function(parent_id){
-        return $http.post(url+'/region',id)
+        //return $http.post(url+'/region',{'json': JSON.stringify({'parent_id': parent_id})})
+          var deferred = $q.defer();
+          $http.post(url+'/region',{'json': JSON.stringify({'parent_id': parent_id})}).success(function(data,status,headers,config){
+            deferred.resolve(data);
+          }).error(function(data,status,headers,config) {            
+            deferred.reject(data)
+          });
+          return deferred.promise        
       },
       user: {
         signin: function(arg){
@@ -288,8 +295,32 @@ angular.module('starter.services', ['ngResource'])
     }
 
     initUser.address = {
-        add:function(){
-          return getData.address.add()
+        add:function(obj){
+          return getData.address.add({
+            'json':JSON.stringify({              
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              },
+              'address': obj
+              // {
+              //   'id': 'id',
+              //   'name': '',
+              //   'email': '',
+              //   'country': 1,
+              //   'province': '',
+              //   'city': '',
+              //   'district': '',
+              //   'address': '',
+              //   'zipcode': '',
+              //   'tel': '',
+              //   'mobile': '',
+              //   'sign_building': '标志建筑',
+              //   'best_time': '',
+              //   'default_address': '1'
+              // }
+            })            
+          })
         },
         list: function(){
           return getData.address.list({

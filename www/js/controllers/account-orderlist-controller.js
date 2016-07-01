@@ -25,7 +25,8 @@ angular.module('starter.controllers')
 		if (res.status.succeed) {
 			$scope.lists = res.data;			
 		}else{
-			alert(res.status.error_desc)
+			//alert(res.status.error_desc)
+			ionicToast.show(res.status.error_desc, 'middle', false, 2500)
 		}
 	},function(res){
 		$ionicLoading.hide();
@@ -112,30 +113,5 @@ angular.module('starter.controllers')
 			},2000)
 		})			
 	}
-	// document.addEventListener(function () {
-	// 	$cordovaInAppBrowser.open('https://www.alipay.com/cooperate/gateway.do?_input_charset=utf-8&agent=C4335319945672464113&logistics_fee=0&logistics_payment=BUYER_PAY_AFTER_RECEIVE&logistics_type=EXPRESS&notify_url=http%3A%2F%2Ftest.shizhencaiyuan.com%2FPHP%2Frespond.php%3Fcode%3Dalipay&out_trade_no=20160628189491522&partner=2088911996618534&payment_type=1&price=48.00&quantity=1&return_url=http%3A%2F%2Ftest.shizhencaiyuan.com%2FPHP%2Frespond.php%3Fcode%3Dalipay&seller_email=admin%40simovision.cn&service=create_direct_pay_by_user&subject=2016062818949&sign=cebe270ea34689b722e10da5d22f5945&sign_type=MD5', '_blank', options)
-	// 		.then(function(event) {
-	// 			// success
-	// 		})
-	// 		.catch(function(event) {
-	// 			// error
-	// 		});
-
-	// 	$cordovaInAppBrowser.close();
-	// }, false);
-
-	// $rootScope.$on('$cordovaInAppBrowser:loadstop', function(e, event){
-	// 	// insert CSS via code / file
-	// 	$cordovaInAppBrowser.insertCSS({
-	// 		code: 'body {background-color:blue;}'
-	// 	});
-
-	// 	// insert Javascript via code / file
-	// 	$cordovaInAppBrowser.executeScript({
-	// 		//file: 'script.js'
-	// 	});
-	// });	
-	// $rootScope.$on('$cordovaInAppBrowser:loaderror', function(e, event){alert(e)  });
- //  	$rootScope.$on('$cordovaInAppBrowser:exit', function(e, event){alert(e)  });
 
 })

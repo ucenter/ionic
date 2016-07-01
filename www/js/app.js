@@ -33,6 +33,10 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
         $ionicLoading.hide();
       }); 
 
+      $rootScope.$on('backButton',function(){
+        
+      })
+
         var initiateUI = function() {
             try {
                 window.plugins.jPushPlugin.init();

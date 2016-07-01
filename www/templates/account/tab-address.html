@@ -11,12 +11,14 @@
 				<span>{{item.province_name}}{{item.city_name}}{{item.district_name}}{{item.address}}</span>
 			</div>
 		</div> -->
-		<ion-list>
-			<ion-item ng-repeat='item in list' 
-				show-delete="shouldShowDelete" 
+		<ion-list show-delete="shouldShowDelete" >
+			<ion-item ng-repeat='item in list' 				
 				can-swipe="listCanSwipe">
+    			<ion-delete-button class="ion-minus-circled"
+                		ng-click="items.splice($index, 1)">
+    			</ion-delete-button>							
 				
-				<h2>{{item.name}} {{item.tel}}</h2>
+				<h2>{{item.name}} {{item.tel}} {{item.mobile}}</h2>
 				<p class='detailAdd'><span class='button button-inline button-assertive' ng-if='item.default_address'>默认</span>
 					{{item.province_name}}{{item.city_name}}{{item.district_name}}{{item.address}}</p>
 				<ion-option-button class='button-positive'>
@@ -25,9 +27,6 @@
 				<ion-option-button class='button-info'>
 					编辑
 				</ion-option-button>	
-    			<ion-delete-button class="ion-minus-circled"
-                		ng-click="items.splice($index, 1)">
-    			</ion-delete-button>							
 			</ion-item>
 		</ion-list>
 	</ion-content>

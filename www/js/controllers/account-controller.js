@@ -107,9 +107,9 @@ angular.module('starter.controllers')
 })
 
 
-.controller('addressCtrl', function($scope,$rootScope,$state,$ionicModal,$ionicListDelegate,$ionicHistory,$cordovaToast,ionicToast,initUser){
-	$scope.shouldShowDelete = true;
-	//$scope.shouldShowReorder = false;
+.controller('addressCtrl', function($scope,$rootScope,$state,$ionicModal,$ionicListDelegate,$ionicHistory,$cordovaToast,ionicToast,initUser,getData){
+	$scope.shouldShowDelete = false;
+	$scope.shouldShowReorder = false;
 	$scope.listCanSwipe = true;
     $ionicListDelegate.showDelete(true);
 	
@@ -128,15 +128,47 @@ angular.module('starter.controllers')
 		$state.go('account');
 	})
 
+	$scope.Add = {
+		'name':'',
+		'mobile':'',
+		'provinceList':[],
+		'province': '',
+		'cityList':[],
+		'city':'',
+		'district':'',
+		'address':'',
+		'default':true
+	}
+
 	$scope.address = function(){
 		$ionicModal.fromTemplateUrl('templates/account/address-modal.html',{            
 			scope: $scope,
 			animation:'slide-in-up'
 		}).then(function(modal){
 			$scope.modal = modal;
-			$scope.modal.show();
+			$scope.modal.show()
+			.then(function(){
+				$scope.region(1).then(function(res){
+					console.log(res)
+					$scope.Add.provinceList = res.data.regions
+
+				})
+				$scope.changeCity = function(e){
+					console.log(e,this)
+					$scope.region(e).then(function(res){
+						$scope.Add.cityList = res.data.regions;
+					})
+				}
+				$scope.changeDis = function(e){
+					console.log(e,this)
+					$scope.region(e).then(function(res){
+						$scope.Add.districtList = res.data.regions;
+					})
+				}								
+			})
 		})		
 	}
+
 
 	$scope.closeModal = function() {
 		$scope.modal.hide().then(function(){
@@ -146,6 +178,36 @@ angular.module('starter.controllers')
 	$scope.$on('$destroy', function() {
 		//$scope.modal.remove();
 	});	
+
+	$scope.submit = function(){
+		console.log($scope.Add)
+		// initUser.address.add({
+		// 	'id': '',
+		// 	'name': $scope.Add.name,
+		// 	'email': '',
+		// 	'country': 1,
+		// 	'province': $scope.Add.province,
+		// 	'city': $scope.Add.city,
+		// 	'district': $scope.Add.district,
+		// 	'address': $scope.Add.address,
+		// 	'zipcode': '',
+		// 	'tel': '',
+		// 	'mobile': $scope.Add.mobile,
+		// 	'sign_building': '',
+		// 	'best_time': '',
+		// 	'default_address': $scope.Add.default ? 1 : 0
+		// }).success(function(res){
+		// 	if (res.status.succeed) {
+		// 		alert('地址增加成功')
+		// 		$scope.closeModal();
+		// 		$state.reload();
+		// 	}
+		// })
+	}
+
+	$scope.region = function(id){
+		return getData.region(id)
+	}
 
 })
 
