@@ -1,19 +1,23 @@
-<ion-view view-title="Login" name="login">
+<ion-view view-title="注册" name="register">
   <ion-header-bar class='bar-calm'>
     <a class="button button-clear icon-left ion-ios-arrow-back" ng-click='back()'></a>
     <h1 class="title">用户注册</h1>
-    <!-- <a class="button" href="#/login">已注册</a> -->
   </ion-header-bar>
   <ion-content class="padding">
+      <form name='register' ng-submit='reg()'>
       <div class="list list-inset">
           <label class="item item-input">
-              <input type="text" placeholder="Username" ng-model="data.username">
+              <input type="text" placeholder="手机号"  ng-model="username" ng-minlength='11' ng-maxlenght='11' required>
           </label>
           <label class="item item-input">
-              <input type="password" placeholder="Password" ng-model="data.password">
+              <input type="password" placeholder="密码" ng-model="password" required>
           </label>
+          <label class='item item-input'>
+            <input type="text" placeholder='验证码' ng-model='code'>
+            <button class="button button-small button-calm" ng-click='getCode()'>获取验证码</button>
+          </label>          
       </div>
-      <button class="button button-block button-calm" ng-click="register()">注册</button>
-      <p><a href="#/tab/dash">随便逛逛</a></p>
+      <button type='submit' class="button button-block button-calm">注册</button>
+      </form>
   </ion-content>
 </ion-view>

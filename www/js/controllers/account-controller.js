@@ -107,9 +107,9 @@ angular.module('starter.controllers')
 })
 
 
-.controller('addressCtrl', function($scope,$rootScope,$state,$ionicModal,$ionicListDelegate,$ionicHistory,$cordovaToast,ionicToast,initUser,getData){
+.controller('addressCtrl', function($scope,$rootScope,$state,$ionicModal,$ionicPopup,$ionicListDelegate,$ionicHistory,$cordovaToast,$timeout,ionicToast,initUser,getData){
 	$scope.shouldShowDelete = false;
-	$scope.shouldShowReorder = false;
+	$scope.shouldShowReorder = true;
 	$scope.listCanSwipe = true;
     $ionicListDelegate.showDelete(true);
 	
@@ -128,8 +128,9 @@ angular.module('starter.controllers')
 		$state.go('account');
 	})
 
+	//初始化地址信息变量
 	$scope.Add = {
-		'name':'',
+		'consignee':'',
 		'mobile':'',
 		'provinceList':[],
 		'province': '',
@@ -181,29 +182,59 @@ angular.module('starter.controllers')
 
 	$scope.submit = function(){
 		console.log($scope.Add)
-		// initUser.address.add({
-		// 	'id': '',
-		// 	'name': $scope.Add.name,
-		// 	'email': '',
-		// 	'country': 1,
-		// 	'province': $scope.Add.province,
-		// 	'city': $scope.Add.city,
-		// 	'district': $scope.Add.district,
-		// 	'address': $scope.Add.address,
-		// 	'zipcode': '',
-		// 	'tel': '',
-		// 	'mobile': $scope.Add.mobile,
-		// 	'sign_building': '',
-		// 	'best_time': '',
-		// 	'default_address': $scope.Add.default ? 1 : 0
-		// }).success(function(res){
-		// 	if (res.status.succeed) {
-		// 		alert('地址增加成功')
-		// 		$scope.closeModal();
-		// 		$state.reload();
-		// 	}
-		// })
+		initUser.address.add({
+			'id': '',
+			'name': $scope.Add.consignee,
+			'email': '',
+			'country': 1,
+			'province': $scope.Add.province,
+			'city': $scope.Add.city,
+			'district': $scope.Add.district,
+			'address': $scope.Add.address,
+			'zipcode': '',
+			'tel': '',
+			'mobile': $scope.Add.mobile,
+			'sign_building': '',
+			'best_time': '',
+			'default_address': $scope.Add.isDefault ? '1' : '0'
+		}).success(function(res){
+			if (res.status.succeed) {
+				alert('地址增加成功')
+				$scope.closeModal();
+				$state.reload();
+			}
+		})
 	}
+	$scope.del = function(id){
+		console.log(id)
+		 var myPopup = $ionicPopup.show({
+		    title: '确定要删除地址吗',
+		    buttons: [
+		      { text: '取消' },
+		      {
+		        text: '<b>删除</b>',
+		        type: 'button-positive',
+		        onTap: function(e) {
+					initUser.address.del(id).success(function(res){
+						console.log(res)
+						if (res.status.succeed) {
+							ionicToast.show('删除成功', 'middle', false, 2000)
+							$timeout(function(){
+								$state.reload();								
+							},1000)
+							  							
+						}else{
+							ionicToast.show('删除失败', 'middle', false, 2000)
+						}
+					})
+		        }
+		      }
+		    ]
+		  });
+	}
+
+
+
 
 	$scope.region = function(id){
 		return getData.region(id)
@@ -212,6 +243,44 @@ angular.module('starter.controllers')
 })
 
 
-.controller('regCtrl', ['$scope','initUser', function($scope,initUser){
-	
+.controller('regCtrl', ['$scope','initUser','ionicToast', function($scope,initUser,ionicToast){
+	//ionicToast.show('init', 'middle', false, 2500);    
+
+	$scope.username = '13011191283';
+	$scope.mobile = $scope.username;
+	$scope.password = '123456';
+	$scope.code;
+	$scope.list=[];
+
+	$scope.reg = function(){
+		$scope.list.push(this.username)
+		$scope.list.push(this.password)
+		$scope.list.push(this.mobile);
+		console.log($scope.list)
+
+		var user = new AV.User();
+		user.set("username", $scope.username);
+		user.set("password", $scope.password);
+		user.setMobilePhoneNumber($scope.username);
+		user.signUp().then(function(res){
+			console.log(res)
+		},function(error){
+			ionicToast.show(error, 'middle', false, 2000)
+		})
+		
+	}
+
+	$scope.getCode = function(){
+		if ($scope.mobile && $scope.mobile.length == '11') {
+			ionicToast.show('手机号格式不正确！', 'middle', false, 2500)
+			return false;
+		}
+		AV.User.requestLoginSmsCode($scope.mobile).then(function (success) {
+
+	  	}, function (error) {
+
+	  	});
+	}
+
+
 }])

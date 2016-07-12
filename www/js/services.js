@@ -338,8 +338,16 @@ angular.module('starter.services', ['ngResource'])
         info: function(){
 
         },
-        del: function(){
-
+        del: function(id){
+          return getData.address.del({
+            'json': JSON.stringify({
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              },
+              'address_id':id              
+            })
+          })
         },
         setDefault: function(){
 

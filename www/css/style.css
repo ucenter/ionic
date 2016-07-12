@@ -393,3 +393,8 @@ a{
 .input-label + select{width: 100%;height: 34px;border: 1px solid #ccc;}
 .input-label + textarea{border: 1px solid #ccc;line-height: 20px;}
 .addAddress .item-input{padding: 6px 0 5px 0}
+
+
+/*注册*/
+input{font-weight: bold;}
+input.ng-invalid{color: red;}

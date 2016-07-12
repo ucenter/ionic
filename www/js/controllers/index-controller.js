@@ -1,5 +1,9 @@
 angular.module('starter.controllers')
-.controller('indexCtrl', function($scope,$rootScope,$state,$ionicSlideBoxDelegate,$ionicLoading,$cordovaGeolocation,$cordovaToast,ionicToast,getData,initUser) {
+.controller('indexCtrl', function(
+	$scope,$rootScope,$state,$ionicSlideBoxDelegate,$ionicLoading,
+	$cordovaGeolocation,$cordovaToast,$cordovaBarcodeScanner,
+	ionicToast,getData,initUser) {
+
 	//首页
 
 	$scope.options = {
@@ -20,6 +24,30 @@ angular.module('starter.controllers')
 	})
 	$scope.doRefresh = function(){
 		$state.reload();
+	}
+
+	$scope.doScan = function(){
+		  document.addEventListener("deviceready", function () {
+
+		    $cordovaBarcodeScanner.scan()
+		      .then(function(barcodeData) {
+		        // Success! Barcode data is here
+		        alert(JSON.stringify(barcodeData))
+		      }, function(error) {
+		        // An error occurred
+		        alert(JSON.stringify(error))
+		      });
+
+
+		    // NOTE: encoding not functioning yet
+		    // $cordovaBarcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
+		    //   .then(function(success) {
+		    //     // Success!
+		    //   }, function(error) {
+		    //     // An error occurred
+		    //   });
+
+		  }, false);
 	}
 
 	console.log('首页',initUser)

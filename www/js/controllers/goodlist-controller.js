@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('goodListCtrl', function($scope,$http,$stateParams,$ionicNavBarDelegate, getData){
+.controller('goodListCtrl', function($scope,$rootScope,$http,$stateParams,$ionicNavBarDelegate, getData){
 	//商品列表页
 	$scope.$on('$ionicView.enter', function(e) { 
 		console.log(e) 
@@ -40,9 +40,6 @@ angular.module('starter.controllers')
 			// Stop the ion-refresher from spinning
 			$scope.$broadcast('scroll.refreshComplete');
 		});
-	}
-	$scope.goBack = function(){
-		history.back();
 	}
 
 

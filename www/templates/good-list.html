@@ -11,7 +11,7 @@
 	</ion-header-bar> -->
 	<div class="bar bar-header item-input-inset">
 		<div class="buttons">
-			<a class="button icon-left ion-ios-arrow-left" ng-click="goBack()"></a>
+			<button class="button icon-left ion-ios-arrow-left" ng-click="myGoBack()"></button>
 		</div>		
 		<label class="item-input-wrapper">
 		<i class="icon ion-ios-search placeholder-icon"></i>
@@ -32,7 +32,7 @@
 		    on-refresh="doRefresh()">
 		 </ion-refresher>	
 		<div class="list">
-			<a class="item item-thumbnail-left" ng-href="#/good/{{::item.goods_id}}" ng-repeat='item in data'>
+			<a class="item item-thumbnail-left" nav-direction="forward" ng-href="#/good/{{::item.goods_id}}" ng-repeat='item in data'>
 				<img style="width:100px;" ng-src="{{::item.img.small}}" alt="{{::item.name}}"/>
 				<div class="info">
 					<h3>{{item.name}}</h3>

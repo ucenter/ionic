@@ -7,11 +7,6 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'starter.services', 'ionic-toast','ionic-datepicker','ngCordova'])
 
-.value('common',{
-  back:function(){
-    return window.history.back();
-  }
-})
 
 .run(function($ionicPlatform,$rootScope,$ionicHistory,$state,$ionicLoading,$cordovaToast,ionicToast) {
 
@@ -33,9 +28,15 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
         $ionicLoading.hide();
       }); 
 
-      $rootScope.$on('backButton',function(){
-        
-      })
+      // $rootScope.$on('backButton',function(){
+      //   $ionicHistory.goBack();
+      // })
+                  
+      $rootScope.myGoBack = function() {
+          console.log('goBack')
+          //$ionicHistory.goBack();
+          $rootScope.$ionicGoBack();
+      };        
 
         var initiateUI = function() {
             try {
@@ -191,12 +192,8 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider,$cordovaInAppBrowserProvider) {
 
-    // document.addEventListener(function () {
-    //   $cordovaInAppBrowserProvider.setDefaultOptions({
-    //     location: 'no',
-    //     clearcache: 'no'
-    //   })
-    // }, false);
+      //leancloud 初始化
+      AV.init('2UYPEYE3kE4I9x3QVjR5rlb2-gzGzoHsz','8EbWzatFFftoVrb4u2J2dpF3');
 
       //修正 $http post请求
       $httpProvider.defaults.transformRequest = function(obj){
@@ -290,11 +287,11 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     })           
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.home', {
+    url: '/home',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
+      'tab-home': {
+        templateUrl: 'templates/tab-home.html',
         controller: 'indexCtrl'
       }
     }
@@ -388,7 +385,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
   })             
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/home');
 
 });
 

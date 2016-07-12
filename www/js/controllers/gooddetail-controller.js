@@ -1,5 +1,7 @@
 angular.module('starter.controllers')
-.controller('goodDetailCtrl', function($scope,$ionicSlideBoxDelegate,$ionicHistory,$state,$stateParams,getData,cart,initUser,ionicToast){
+.controller('goodDetailCtrl', function(
+	$scope,$rootScope,$ionicSlideBoxDelegate,$ionicHistory,$state,$stateParams,$ionicLoading,
+	getData,cart,initUser,ionicToast){
 	//商品详情页
 
 	$scope.$on('$ionicView.enter',function(){
@@ -19,21 +21,13 @@ angular.module('starter.controllers')
 			$ionicSlideBoxDelegate.update();//激活幻灯
 		})
 	})
-	$scope.goBack = function(){
-		//$ionicHistory.goBack();
-		//history.back();
-		//$ionicHistory.viewHistory();
-		console.log($state)
-		$state.reload()
-	}
+
 	$scope.addCart = function(){
 		cart.add(initUser,'224','2','').success(function(res){
 			console.log(res)
 			ionicToast.show('已加入购物车', 'middle', false, 2500);    
 		})
 	}
-	$scope.$on('backbutton',function(){
 
-	})
 
 })
