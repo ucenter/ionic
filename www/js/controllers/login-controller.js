@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 .controller('loginCtrl', function($scope,$http,$rootScope,$state,$ionicHistory,$ionicLoading,getData,initUser,ionicToast){
-	console.log($ionicHistory)
+
 	$scope.data = {
 		'username': 'test',
 		'password': 'test888'
@@ -9,9 +9,13 @@ angular.module('starter.controllers')
 		savePassword: true
 	};
 
-	$scope.back = function(){
-		history.back();
+	$scope.getCodeText = '获取验证码';
+
+	$scope.getCode = function($event){
+		$scope.isGetCode = true;
+		console.log($event)
 	}
+	$scope.isGetCode = false;
 
 	$scope.login = function(){
 		if (!$scope.data.username && !$scope.data.password) {

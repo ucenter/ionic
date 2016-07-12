@@ -1,28 +1,26 @@
 <ion-view view-title="Login" name="login">
   <ion-header-bar class='bar-calm'>
-    <a ng-click='back()' class="button button-clear icon-left ion-ios-arrow-back"></a>
+    <button ng-click='myGoBack()' class="button button-clear icon-left ion-ios-arrow-back"></button>
     <h1 class="title">用户登录</h1>
-    <a href='#/register' class="button button-clear">注册用户</a>
+    <a href='#/register' nav-direction="forward" class="button button-clear">手机登录</a>
   </ion-header-bar>
   <ion-content class="padding">
-      <div class="list list-inset">
-          <label class="item item-input">
-              <input type="text" placeholder="Username" ng-model="data.username">
-          </label>
-          <label class="item item-input">
-              <input type="password" placeholder="Password" ng-model="data.password">
-          </label>
+      <div class="list list-inset">         
+            <label class="item item-input">
+                <input type="text" placeholder="Username" ng-model="data.username" required>
+            </label>
+            <label class="item item-input">
+                <input type="password" placeholder="Password" ng-model="data.password" required>
+            </label>
+            <!-- <button class='button' ng-click='getCode($event)' ng-disabled='data.username.$invalid'>{{getCodeText}}</button> -->
+            <button ng-click='login()' class="button button-block button-calm" ng-disabled='login.$invalid'>登录</button>
+
       </div>
-<!--       <div class="list">
-        <ion-toggle  ng-model="settings.savePassword">
-            保存密码
-        </ion-toggle></div> -->
-      <button class="button button-block button-calm" ng-click="login()">登录</button>
       <div class="buttons" style='text-align:center;'>
         <a class="button button-clear" ng-click="wechatLogin()">
           <img src="./img/icon32_wx_button.png" alt="">
         </a>        
       </div>
-      <p><a href="#/tab/dash">随便逛逛</a><a class="fr" href="#/register">忘记密码？</a></p>
+      <p><a href="#/tab/dash">随便逛逛</a><a class="fr" nav-direction="forward" href="#/register">忘记密码？</a></p>
   </ion-content>
 </ion-view>

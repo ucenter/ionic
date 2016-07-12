@@ -4,14 +4,8 @@
 		<h1 class="title">地址管理</h1>
 	</ion-header-bar>
 	<ion-content>
-<!-- 		<div class="card" ng-repeat='item in list track by $index'>
-			<div class="item item-text-wrap">
-				<p>{{item.name}} {{item.tel}}</p>
-				<span ng-if='item.default_address'>默认</span>
-				<span>{{item.province_name}}{{item.city_name}}{{item.district_name}}{{item.address}}</span>
-			</div>
-		</div> -->
-		<ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder">
+		<p>左滑动编辑地址</p>
+		<ion-list show-delete="shouldShowDelete">
 			<ion-item ng-repeat='item in list' 				
 				can-swipe="listCanSwipe">
     			<ion-delete-button class="ion-close-circled"
@@ -27,8 +21,9 @@
 				<ion-option-button class='button-info'>
 					编辑
 				</ion-option-button>	
-				<ion-reorder-button class="ion-navicon" on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-				</ion-reorder-button>				
+				<ion-option-button class='button-assertive' ng-click='del(item.id)'>
+					删除
+				</ion-option-button>							
 			</ion-item>
 		</ion-list>
 	</ion-content>

@@ -5,7 +5,9 @@
 		</div>
 		<h1 class="title">个人中心</h1>
 		<div class="buttons">
-			<a class="button button-clear" href='#/message'><i class="icon ion-ios-chatbubble"></i></a>
+			<a class="button button-clear" href='#/message'>
+				<i class="icon ion-ios-chatbubble"></i>
+			</a>
 		</div>
 	</ion-header-bar>
 
@@ -19,7 +21,7 @@
 					</a>
 				</div>
 				<div class="header" ng-class='{hide: initUser.session.sid}'>
-					<a class="link" href="#/login">
+					<a class="link" nav-direction='forward' href="#/login">
 						<img src="./img/default.png" alt="">
 						<span>登陆/注册</span>
 					</a>
