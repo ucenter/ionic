@@ -213,7 +213,7 @@ angular.module('starter.services', ['ngResource'])
     var initUser = {};//初始用户全局变量
         initUser.session = {'sid':'','uid':''}
         initUser.info = {};
-        initUser.isLogin;      
+        initUser.isLogin = false      
     //读取本地存储
     if (getData.getLocal('sid') && getData.getLocal('sid').length == 40 && getData.getLocal('uid')) {
         initUser.session.sid = getData.getLocal('sid');
@@ -332,11 +332,27 @@ angular.module('starter.services', ['ngResource'])
             })
           })
         },
-        update: function(){
-
+        update: function(id){
+          return getData.address.update({
+            'json': JSON.stringify({
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              },
+              'address_id':id              
+            })
+          })
         },
-        info: function(){
-
+        info: function(id){
+          return getData.address.info({
+            'json': JSON.stringify({
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              },
+              'address_id':id              
+            })
+          })
         },
         del: function(id){
           return getData.address.del({
@@ -349,8 +365,16 @@ angular.module('starter.services', ['ngResource'])
             })
           })
         },
-        setDefault: function(){
-
+        setDefault: function(id){
+          return getData.address.setDefault({
+            'json': JSON.stringify({
+              'session':{
+                'uid': initUser.session.uid,
+                'sid': initUser.session.sid
+              },
+              'address_id': id
+            })
+          })
         }
 
     }

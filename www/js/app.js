@@ -28,9 +28,6 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
         $ionicLoading.hide();
       }); 
 
-      // $rootScope.$on('backButton',function(){
-      //   $ionicHistory.goBack();
-      // })
                   
       $rootScope.myGoBack = function() {
           console.log('goBack')
@@ -349,6 +346,7 @@ angular.module('starter', ['ionic','ionicLazyLoad', 'starter.controllers', 'star
     })
     .state('address', {
       url: '/address',
+      cache: false,
       templateUrl: 'templates/account/tab-address.html',
       controller: 'addressCtrl'
     })

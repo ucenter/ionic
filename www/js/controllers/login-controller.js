@@ -47,8 +47,8 @@ angular.module('starter.controllers')
 							initUser.setInfo(res.data)
 							//$state.go('fromParams',{}, {reload: true}); 
 							//$rootScope.$ionicGoBack();
-							//$ionicHistory.goBack()
-							history.back();
+							$ionicHistory.goBack()
+							//history.back();
 						})
 					},0)					
 				}
